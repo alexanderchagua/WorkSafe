@@ -3,8 +3,8 @@
 function dataPrueba(){
     $server = 'localhost';
     $dbname= 'worksafe';
-    $username = 'clients';
-    $password = 'ph6_lF3jGt/tFRGX'; 
+    $username = 'Client';
+    $password = 'QRSu/3T[nWYMlL3W'; 
     $dsn = "mysql:host=$server;dbname=$dbname";
     $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
