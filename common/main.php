@@ -29,12 +29,10 @@
       By using WorkSafe, organizations can improve transparency, reduce risks, and foster a proactive safety culture aligned with global frameworks like the ILO Conventions No. 155 and No. 187.
     </p>
   </section>
+  
+  <!-- Call to Action -->
+<section class="more-content">
+  <a href="/worksafe/index.php?action=Join" class="btn-primary">Join Us</a>
+</section>
 
-  <!-- Future Features -->
-  <section class="more-content">
-    <h2>Coming Soon...</h2>
-    <p>
-      New features are on the way, including enhanced analytics, mobile access, and integration with national safety systems. Stay tuned as we continue to evolve WorkSafe to meet the needs of modern workplaces.
-    </p>
-  </section>
 </main>
