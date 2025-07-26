@@ -9,6 +9,9 @@
     <title><?php echo isset($pageTitle) ? $pageTitle : 'worksafe - sytem safe'; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/worksafe/css/style.css">
+    <!-- Intl Tel Input CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.5/build/css/intlTelInput.min.css" />
+
 </head>
 <body>
     <header class="header">

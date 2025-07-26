@@ -27,6 +27,10 @@ switch ($action) {
     default:
         include './views/home.php';
         break;
+    case 'Join':
+    include './views/join_form.php';
+    break;
+
 }
 
 
