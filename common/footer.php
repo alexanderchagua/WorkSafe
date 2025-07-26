@@ -38,5 +38,21 @@
             <p>&copy; <?php echo date('Y'); ?> WorkSafe. All rights reserved.</p>
         </div>
     </footer>
+    <!-- Intl Tel Input JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.5/build/js/intlTelInput.min.js"></script>
+<script>
+  const input = document.querySelector("#phone");
+  window.intlTelInput(input, {
+    initialCountry: "auto",
+    geoIpLookup: function(callback) {
+      fetch("https://ipapi.co/json")
+        .then(res => res.json())
+        .then(data => callback(data.country_code))
+        .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.5/build/js/utils.js"
+  });
+</script>
+
 </body>
 </html>
