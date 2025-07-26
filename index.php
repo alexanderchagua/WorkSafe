@@ -16,9 +16,9 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'home';
 
 switch ($action) {
     case 'Add Personal':
-        include './views/add_personal.php';
+        include './views/addPerson.php';
         break;
-    case 'Search Personal':
+    case 'Search':
         include './views/search.php';
         break;
     case 'Login':
