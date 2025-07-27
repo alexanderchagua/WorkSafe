@@ -1,35 +1,42 @@
 <?php
-// This is the main controller
+// Main controller for WorkSafe
 
-// Create or access a Session
 session_start();
 
+// Load dependencies
 require_once './library/connections.php';
 require_once './library/nav.php';
 require_once './models/main-model.php';
 
+// Build navigation menu
 $navs = getNavs();
 $navList = buildNavList($navs);
 
-//var_dump($navs);
-//exit;
-//echo $navList;
-//exit;
+// Determine the requested action
+$action = filter_input(INPUT_GET, 'action');
+if (!$action) {
+    $action = 'home';
+}
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'home';
+// Redirect account-related actions to accounts controller
+$accountActions = [
+    'login',
+    'Login',
+    'Logout',
+    'register',
+    'registration',
+    'updateInfo',
+    'updatePersonal',
+    'updatePassword'
+];
 
+if (in_array($action, $accountActions)) {
+    header('Location: /worksafe/accounts/index.php?action=' . urlencode($action));
+    exit;
+}
+
+// Route for general actions
 switch ($action) {
-    case 'login':
-    case 'Login':
-    case 'Logout':
-    case 'register':
-    case 'registration':
-    case 'updateInfo':
-    case 'updatePersonal':
-    case 'updatePassword':
-        header('Location: /worksafe/accounts/index.php?action=' . urlencode($action));
-        exit;
-
     case 'Add Personal':
         include './views/addPerson.php';
         break;
@@ -38,10 +45,12 @@ switch ($action) {
         include './views/search.php';
         break;
 
-    default:
-        include './views/home.php';
-        break;
     case 'Join':
         include './views/join_form.php';
+        break;
+
+    case 'home':
+    default:
+        include './views/home.php';
         break;
 }
