@@ -41,6 +41,10 @@ switch ($action) {
         include './views/addPerson.php';
         break;
 
+    case 'Statistics':
+        require_once './views/dasboard.php';
+        break;
+
     case 'Search':
         include './views/search.php';
         break;
