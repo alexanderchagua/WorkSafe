@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-07-2025 a las 06:16:00
+-- Tiempo de generación: 02-08-2025 a las 18:25:04
 -- Versión del servidor: 10.6.17-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `worksafe`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clients`
+--
+
+CREATE TABLE `clients` (
+  `clientId` int(11) NOT NULL,
+  `clientFirstname` varchar(15) NOT NULL,
+  `clientLastname` varchar(25) NOT NULL,
+  `clientEmail` varchar(40) NOT NULL,
+  `clientPassword` varchar(255) NOT NULL,
+  `clientLevel` enum('1','2','3','4') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,6 +92,20 @@ INSERT INTO `datos_ssoma` (`id`, `mes`, `anio`, `trabajadores_total`, `trabajado
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `invetory`
+--
+
+CREATE TABLE `invetory` (
+  `id` int(11) NOT NULL,
+  `Codigo` varchar(255) NOT NULL,
+  `Descripcion` varchar(255) CHARACTER SET utf32 COLLATE utf32_swedish_ci NOT NULL,
+  `Stock` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `nav`
 --
 
@@ -94,7 +123,8 @@ INSERT INTO `nav` (`navId`, `name`) VALUES
 (2, 'Add Personal'),
 (3, 'Search'),
 (4, 'Statistics'),
-(5, 'Login');
+(5, 'Login'),
+(6, 'Inventory');
 
 -- --------------------------------------------------------
 
@@ -157,7 +187,7 @@ ALTER TABLE `datos_ssoma`
 -- AUTO_INCREMENT de la tabla `nav`
 --
 ALTER TABLE `nav`
-  MODIFY `navId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `navId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
