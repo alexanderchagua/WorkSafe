@@ -1,3 +1,21 @@
+<?php
+
+// Check if the user is logged in
+if (!isset($_SESSION['clientData'])) {
+    echo "<p style='color: red;'>Access denied. You must be logged in.</p>";
+    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    exit;
+}
+
+// Check if the user has level 1 access
+if ($_SESSION['clientData']['clientLevel'] != 1) {
+    echo "<p style='color: red;'>You do not have permission to access this page.</p>";
+    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    exit;
+}
+?>
+
+
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
