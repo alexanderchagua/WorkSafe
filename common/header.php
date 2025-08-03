@@ -1,32 +1,33 @@
- <?php
+<?php
 // common/header.php
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($pageTitle) ? $pageTitle : 'worksafe - sytem safe'; ?></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/worksafe/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><?php echo isset($pageTitle) ? $pageTitle : 'worksafe - system safe'; ?></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/worksafe/css/style.css" />
     <!-- Intl Tel Input CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.5/build/css/intlTelInput.min.css" />
-
 </head>
+
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="/worksafe/images/logo.jpeg" alt="worksafe Logo" class="logo">
+            <img src="/worksafe/images/logo.jpeg" alt="worksafe Logo" class="logo" />
             <div class="logo-text">Work<span>Safe</span></div>
         </div>
-        
+
         <div class="hamburger" id="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        
-     <!-- 
+
+        <!-- 
         Este es el bloque original en header.php.
         El problema es que $navList no está definido si accedemos a páginas
         que no pasan por el controlador principal (index.php).
@@ -46,45 +47,56 @@
         que el backend genere esta variable correctamente más adelante.
         -->
         <nav class="nav-menu" id="navMenu">
-        <?php
+            <?php
             if (isset($navList)) {
-            echo $navList;
+                echo $navList;
             } else {
-            // Esto evita el error y puede ser temporal
-            echo '<ul class="navigation"><li><a href="/worksafe/index.php">Home</a></li></ul>';
+                // Esto evita el error y puede ser temporal
+                echo '<ul class="navigation"><li><a href="/worksafe/index.php">Home</a></li></ul>';
             }
-        ?>
+            ?>
         </nav>
 
 
-        
+
         <div class="user-menu">
-            <button class="user-btn" id="userBtn">
-                <i class="fas fa-user"></i> User
-            </button>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button">
+                        <i class="fas fa-user"></i>
+                        <?php echo htmlspecialchars($_SESSION['clientData']['clientFirstname'] ?? 'User'); ?>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="/worksafe/accounts/?action=updateInfo">Edit Profile</a>
+                        <a href="/worksafe/accounts/?action=Logout">Logout</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a href="/worksafe/accounts/?action=login" class="user-btn">
+                    <i class="fas"></i> Login
+                </a>
+            <?php endif; ?>
         </div>
     </header>
 
     <script>
-     
         document.addEventListener('DOMContentLoaded', function() {
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('navMenu');
-            
+
             hamburger.addEventListener('click', function() {
                 hamburger.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
-            
-          
+
             document.querySelectorAll('.nav-menu a').forEach(link => {
                 link.addEventListener('click', function() {
                     hamburger.classList.remove('active');
                     navMenu.classList.remove('active');
                 });
             });
-            
-         
+
             const currentAction = '<?php echo isset($_GET['action']) ? $_GET['action'] : 'home'; ?>';
             document.querySelectorAll('.nav-menu a').forEach(link => {
                 const href = link.getAttribute('href');
@@ -94,3 +106,8 @@
             });
         });
     </script>
+
+    <script src="/WorkSafe/views/js/dropdown.js"></script>
+</body>
+
+</html>
