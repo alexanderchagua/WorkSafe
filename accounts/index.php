@@ -12,10 +12,8 @@ require_once '../library/nav.php';
 $navs = getNavs();
 $navList = buildNavList($navs);
 
-// Detect action
 $action = filter_input(INPUT_POST, 'action') ?? filter_input(INPUT_GET, 'action') ?? 'login';
 
-// Leer cookie de firstname si existe
 if (isset($_COOKIE['firstname'])) {
     $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }
@@ -27,11 +25,17 @@ switch ($action) {
         break;
 
     case 'register':
-        // Procesar datos de registro
         $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
         $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+        $confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+        if ($clientPassword !== $confirmPassword) {
+            $message = "<p>Passwords do not match.</p>";
+            include '../views/registration.php';
+            exit;
+        }
 
         $existingEmail = checkExistingEmail($clientEmail);
         if ($existingEmail) {
@@ -44,7 +48,7 @@ switch ($action) {
         $checkPassword = checkPassword($clientPassword);
 
         if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {
-            $message = '<p>Please provide information for all empty form fields.</p>';
+            $message = '<p>Please fill in all required fields with valid data.</p>';
             include '../views/registration.php';
             exit;
         }
@@ -54,11 +58,11 @@ switch ($action) {
 
         if ($regOutcome === 1) {
             setcookie('firstname', $clientFirstname, strtotime('+1 year'), '/');
-            $_SESSION['message'] = "Thanks for registering $clientFirstname. Please use your email and password to login.";
+            $_SESSION['message'] = "Thanks for registering $clientFirstname. Please login.";
             header('Location: ../accounts/?action=login');
             exit;
         } else {
-            $message = "<p>Sorry $clientFirstname, but the registration failed. Please try again.</p>";
+            $message = "<p>Registration failed. Please try again.</p>";
             include '../views/registration.php';
             exit;
         }
@@ -75,21 +79,20 @@ switch ($action) {
         $passwordCheck = checkPassword($clientPassword);
 
         if (empty($clientEmail) || empty($passwordCheck)) {
-            $message = '<p>Please provide a valid email address and password.</p>';
+            $message = '<p>Invalid email or password format.</p>';
             include '../views/login.php';
             exit;
         }
 
         $clientData = getClient($clientEmail);
-        if (!password_verify($clientPassword, $clientData['clientPassword'])) {
-            $message = '<p>Please check your password and try again.</p>';
+        if (!$clientData || !password_verify($clientPassword, $clientData['clientPassword'])) {
+            $message = 'Email or password is incorrect.';
             include '../views/login.php';
             exit;
         }
 
-        // Login OK
         $_SESSION['loggedin'] = true;
-        unset($clientData['clientPassword']); // safer than array_pop
+        unset($clientData['clientPassword']);
         $_SESSION['clientData'] = $clientData;
         include '../views/admin.php';
         exit;
@@ -107,7 +110,15 @@ switch ($action) {
         $clientEmail = checkEmail($clientEmail);
 
         if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($invId)) {
-            $message = '<p>Please provide information for all empty form fields.</p>';
+            $message = '<p>Please complete all fields.</p>';
+            include '../views/client-update.php';
+            exit;
+        }
+
+        // Verificar si el nuevo email ya está en uso por otro usuario
+        $emailOwner = getClient($clientEmail);
+        if ($emailOwner && $emailOwner['clientId'] != $invId) {
+            $message = '<p>Email already in use by another user.</p>';
             include '../views/client-update.php';
             exit;
         }
@@ -118,18 +129,23 @@ switch ($action) {
         unset($clientData['clientPassword']);
         $_SESSION['clientData'] = $clientData;
 
-        if ($resultPersonal === 1) {
-            $_SESSION['message'] = "<p>Information update was a success.</p>";
-        } else {
-            $_SESSION['message'] = "<p>Sorry, but information update failed. Please try again.</p>";
-        }
+        $_SESSION['message'] = $resultPersonal === 1
+            ? "<p>Information update was a success.</p>"
+            : "<p>Update failed. Please try again.</p>";
 
         header('location: /worksafe/accounts/');
         exit;
 
     case 'updatePassword':
         $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $confirmPassword = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        if ($clientPassword !== $confirmPassword) {
+            $message = '<p>Passwords do not match.</p>';
+            include '../views/client-update.php';
+            exit;
+        }
 
         $passwordCheck = checkPassword($clientPassword);
         if (empty($passwordCheck)) {
@@ -141,11 +157,9 @@ switch ($action) {
         $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
         $resultPassword = updateNewPassword($hashedPassword, $invId);
 
-        if ($resultPassword === 1) {
-            $_SESSION['message'] = "<p>Password update was a success.</p>";
-        } else {
-            $_SESSION['message'] = "<p>Sorry, but password update failed. Please try again.</p>";
-        }
+        $_SESSION['message'] = $resultPassword === 1
+            ? "<p>Password updated successfully.</p>"
+            : "<p>Failed to update password. Please try again.</p>";
 
         header('location: /worksafe/accounts/');
         exit;

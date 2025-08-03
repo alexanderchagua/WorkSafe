@@ -40,7 +40,10 @@
                     Password must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character.
                 </span><br>
                 <input type="password" id="password" name="clientPassword" required
-                    pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"><br><br>
+                    pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"><br>
+
+                <label for="confirmPassword">Confirm Password:</label><br>
+                <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
 
                 <input type="submit" name="submit" id="regbtn" value="Register">
                 <input type="hidden" name="action" value="register">
