@@ -27,6 +27,6 @@ function dataPrueba()
         return $link;
     } catch (PDOException $e) {
         echo "Error de conexión: " . $e->getMessage();
-        exit;
+        exit; // Termina la ejecución del script si hay un error de conexión
     }
 }
