@@ -16,16 +16,17 @@
         <h1>Sign In</h1>
 
         <?php
+        // Mostrar mensajes de error o éxito si los hay
         if (isset($message)) {
-            echo "<p class='message'>$message</p>";
+            echo "<p class='message'>" . htmlspecialchars($message) . "</p>";
         }
         if (isset($_SESSION['message'])) {
-            echo "<p class='message'>{$_SESSION['message']}</p>";
+            echo "<p class='message'>" . htmlspecialchars($_SESSION['message']) . "</p>";
             unset($_SESSION['message']);
         }
         ?>
 
-        <form method="post" action="/worksafe/accounts/">
+        <form method="post" action="/worksafe/accounts/index.php">
             <label for="clientEmail">Email:</label><br>
             <input type="email" id="clientEmail" name="clientEmail"
                 value="<?= htmlspecialchars($clientEmail ?? '') ?>" required><br><br>
@@ -34,8 +35,7 @@
             <span>
                 Password must be at least 8 characters and contain at least 1 number, 1 capital letter, and 1 special character.
             </span><br>
-            <input type="password" id="clientPassword" name="clientPassword"
-                required
+            <input type="password" id="clientPassword" name="clientPassword" required
                 pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"><br><br>
 
             <input type="submit" name="submit" id="logbtn" value="Login">
