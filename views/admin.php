@@ -1,6 +1,6 @@
 <?php
 // Redirección inmediata si el usuario no está autenticado
-session_start();
+
 if (!isset($_SESSION['clientData'])) {
     header('Location: /worksafe/accounts/index.php?action=login');
     exit;

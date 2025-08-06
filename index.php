@@ -44,14 +44,20 @@ switch ($action) {
     case 'Statistics':
         require_once './views/dasboard.php';
         break;
+    case 'Login':
+        include './views/login.php';
 
     case 'Search':
         include './views/search.php';
+        break;
+    case 'Inventory':
+        include './views/ppe_inventory.php';
         break;
 
     case 'Join':
         include './views/join_form.php';
         break;
+    
 
     case 'home':
     default:

@@ -2,7 +2,7 @@
 
 <?php
 
-require_once './library/conections.php'; 
+require_once '../library/connections.php'; 
 
 function obtenerDatosPorNombre($name, $area_trabajo) {
     // Conexion a la base de datos

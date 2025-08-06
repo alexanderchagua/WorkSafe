@@ -1,6 +1,6 @@
 <?php
 // models/personal_mode.php - ACTUALIZADO
-@require_once './library/conections.php';
+@require_once '../library/connections.php';
 
 // Función para obtener todas las columnas EPP dinámicamente
 function getEppFields() {

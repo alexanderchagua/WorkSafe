@@ -1,7 +1,7 @@
 <?php
 // personal_epp/index.php - CONTROLADOR ACTUALIZADO
 session_start();
-require_once '../library/conections.php';
+require_once '../library/connections.php';
 require_once '../models/personal_mode.php';
 require_once '../library/nav.php';
 require_once '../models/main-model.php';
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Firma
     $firmar = !empty($_POST['firmar']) ? $_POST['firmar'] : null;
-    
+     $firmar = str_replace('data:image/jpeg;base64,', '', $firmar);
     // Intentar mover el archivo
     if (move_uploaded_file($foto['tmp_name'], $targetFilePath)) {
         $datos_personales['foto'] = $targetFilePath;
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (guardarDatosDinamico($datos_personales, $datos_epp, $firmar)) {
             // Éxito al guardar los datos
             $success_message = "Personal registrado exitosamente";
-            include './views/personal_dinamico.php';
+            include '../views/addPerson.php';
             exit();
         } else {
             $message = "Error al guardar los datos. Por favor, inténtalo de nuevo.";
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Mostrar formulario
-    include '../views/personal_dinamico.php';
+  
 }
 
 ?>
