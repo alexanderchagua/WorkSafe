@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (insertData($code, $description, $stock, $quantity)) {
             echo "Data inserted successfully.";
             
-            header("Location: index.php");
+            header("Location: index.php?action=Inventory");
             exit();
         } else {
             echo "Error inserting the data.";
