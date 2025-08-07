@@ -16,7 +16,7 @@
         <h1>Sign In</h1>
 
         <?php
-        // Mostrar mensajes de error o éxito si los hay
+
         if (isset($message)) {
             echo "<p class='message'>" . htmlspecialchars($message) . "</p>";
         }

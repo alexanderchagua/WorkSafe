@@ -1,9 +1,10 @@
 <?php
 // controllers/SsomaController.php
 require_once './models/model_stadistic.php';
+require_once './library/connections.php';
+require_once './models/main-model.php';
 
-$navs = getNavs();
-$navList = buildNavList($navs);
+
 
 function mostrarDashboard() {
     $mesActual = isset($_GET['mes']) ? $_GET['mes'] : 'enero';

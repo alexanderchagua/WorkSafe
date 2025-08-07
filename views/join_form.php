@@ -9,7 +9,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php";
     <h2>Join WorkSafe</h2>
     <p>Fill out the form below to express your interest in our platform.</p>
 
-    <!-- Este es mi formulario. Por ahora no lo voy a enviar a un servidor, solo mostraré un mensaje al enviarlo -->
+  
     <form id="join-form" class="join-form">
       <label for="fullname">Full Name:</label>
       <input type="text" id="fullname" name="fullname" required>
@@ -28,39 +28,39 @@ include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php";
 
       <button type="submit" class="btn-primary">Submit</button>
 
-      <!-- Campo oculto, no lo uso aún pero lo dejo por si quiero capturar el número completo con código más adelante -->
+  
       <input type="hidden" name="full_phone" id="full_phone" />
     </form>
 
-    <!-- Este div mostrará la notificación después de enviar -->
+ 
     <div id="success-message" style="display:none; margin-top: 15px; color: green; font-weight: bold;">
       Thank you! We've received your information and will contact you shortly.
     </div>
   </section>
 </main>
 
-<!-- Añado el script directamente aquí para que se ejecute en esta página -->
+
 <script>
-  // Espero a que el documento cargue
+
   document.addEventListener("DOMContentLoaded", function () {
-    // Obtengo el formulario y el mensaje de éxito
+  
     const form = document.getElementById("join-form");
     const successMessage = document.getElementById("success-message");
 
-    // Escucho el evento "submit"
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // Evito que el formulario se envíe (por ahora)
 
-      // Aquí simplemente muestro el mensaje
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); 
+
+  
       successMessage.style.display = "block";
 
-      // También puedo limpiar el formulario si quiero
+   
       form.reset();
 
-      // Y ocultar el mensaje después de unos segundos si lo deseo
+   
       setTimeout(() => {
         successMessage.style.display = "none";
-      }, 5000); // 5 segundos
+      }, 5000); 
     });
   });
 </script>

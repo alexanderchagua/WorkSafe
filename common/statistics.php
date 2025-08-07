@@ -1,4 +1,26 @@
 
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
+<?php
+
+// Check if the user is logged in
+if (!isset($_SESSION['clientData'])) {
+    echo "<p style='color: red;'>Access denied. You must be logged in.</p>";
+    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    exit;
+}
+
+// Check if the user has level 1 access
+if ($_SESSION['clientData']['clientLevel'] != 1) {
+    echo "<p style='color: red;'>You do not have permission to access this page.</p>";
+    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    exit;
+}
+?>
 
 
 
@@ -23,7 +45,7 @@
         }
         .card-header {
             background-color: #fff;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid #1d7bdaff;
             font-weight: 600;
         }
         .btn-mes {
@@ -68,7 +90,7 @@
         }
     </style>
 </head>
-
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
 <body>
     <nav class="navbar navbar-dark mb-4">
         <div class="container-fluid">
@@ -134,7 +156,7 @@
         <!-- Statistical summary -->
         <div class="row mb-4" id="stats-row">
             <div class="col-md-3">
-                <div class="stat-card">
+                <div class="stat-card" style="background: linear-gradient(135deg, #0fc2f8ff 0%, #4831caff 100%);">
                     <div class="stat-value" id="stat-trabajadores"><?php echo $datos['trabajadores_total']; ?></div>
                     <div><i class="fas fa-users me-2"></i>Total Workers</div>
                 </div>
@@ -424,7 +446,7 @@
             document.getElementById('stat-capacitados').textContent = datos.capacitados;
         }
     </script>
-
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/footer.php"; ?>
 </body>
 
 

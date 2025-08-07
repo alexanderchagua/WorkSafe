@@ -1,10 +1,5 @@
 <?php
-/*
- * Accounts Model
- * Interacción con la base de datos para el manejo de clientes
- */
 
-// Registrar un nuevo cliente
 function regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword)
 {
     $db = dataPrueba();
@@ -21,7 +16,7 @@ function regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassw
     return $rowsChanged;
 }
 
-// Verificar si un email ya existe
+
 function checkExistingEmail($clientEmail)
 {
     $db = dataPrueba();
@@ -34,7 +29,7 @@ function checkExistingEmail($clientEmail)
     return $exists ? 1 : 0;
 }
 
-// Obtener cliente por email
+
 function getClient($clientEmail)
 {
     $db = dataPrueba();
@@ -49,7 +44,7 @@ function getClient($clientEmail)
     return $clientData;
 }
 
-// Obtener cliente por ID
+
 function getClientId($clientId)
 {
     $db = dataPrueba();
@@ -64,7 +59,7 @@ function getClientId($clientId)
     return $clientData;
 }
 
-// Actualizar información personal
+
 function updatePersonal($clientFirstname, $clientLastname, $clientEmail, $clientId)
 {
     $db = dataPrueba();
@@ -84,7 +79,7 @@ function updatePersonal($clientFirstname, $clientLastname, $clientEmail, $client
     return $rowsChanged;
 }
 
-// Actualizar contraseña
+
 function updateNewPassword($hashedPassword, $clientId)
 {
     $db = dataPrueba();

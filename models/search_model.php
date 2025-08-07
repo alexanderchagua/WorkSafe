@@ -1,21 +1,19 @@
-
-
 <?php
 
 require_once '../library/connections.php'; 
 
 function obtenerDatosPorNombre($name, $area_trabajo) {
-    // Conexion a la base de datos
+    // Connect to the database
     $pdo = dataPrueba();
     
-    // Consulta SQL para obtener los datos por nombre
+    // SQL query to get data by name and work area
     $stmt = $pdo->prepare("SELECT * FROM personal_epp WHERE name LIKE :name AND area_trabajo LIKE :area_trabajo");
     $stmt->execute([
         'name' => "%$name%",
         'area_trabajo' => "%$area_trabajo%"
     ]);
     
-    // Obtener y devolver los resultados
+    // Fetch and return the results
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>

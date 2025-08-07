@@ -1,19 +1,19 @@
 <?php
-// personal_epp/index.php - CONTROLADOR ACTUALIZADO
+// personal_epp/index.php - UPDATED CONTROLLER
 session_start();
 require_once '../library/connections.php';
 require_once '../models/personal_mode.php';
 require_once '../library/nav.php';
 require_once '../models/main-model.php';
 
-// Obtener los datos de navegación
+// Get navigation data
 $navs = getNavs();
 
-// Obtener los campos EPP dinámicamente
+// Get EPP fields dynamically
 $epp_fields = getEppFields();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Datos personales
+    // Personal data
     $datos_personales = [
         'name' => trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING)),
         'edad' => intval(trim(filter_input(INPUT_POST, 'edad', FILTER_VALIDATE_INT))),
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'sede' => $_POST['sede']
     ];
     
-    // Procesar imagen
+    // Process photo
     $foto = $_FILES['foto'];
     $uploadDirectory = "../uploads/";
     
@@ -38,51 +38,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fotoNombre = uniqid() . '_' . basename($foto['name']);
     $targetFilePath = $uploadDirectory . $fotoNombre;
     
-    // Procesar datos EPP dinámicamente
+    // Process EPP data dynamically
     $datos_epp = [];
     
     foreach($epp_fields as $epp_key => $epp_info) {
-        // Campo principal (checkbox)
+        // Main field (checkbox)
         if(isset($epp_info['campo'])) {
             $campo_principal = $epp_info['campo'];
             $datos_epp[$campo_principal] = isset($_POST[$campo_principal]) ? 1 : 0;
         }
         
-        // Fecha de entrega
+        // Delivery date
         if(isset($epp_info['fecha_entrega'])) {
             $campo_fecha = $epp_info['fecha_entrega'];
             $datos_epp[$campo_fecha] = !empty($_POST[$campo_fecha]) ? $_POST[$campo_fecha] : null;
         }
         
-        // Fecha de cambio
+        // Replacement date
         if(isset($epp_info['cambio'])) {
             $campo_cambio = $epp_info['cambio'];
             $datos_epp[$campo_cambio] = !empty($_POST[$campo_cambio]) ? $_POST[$campo_cambio] : null;
         }
     }
     
-    // Firma
+    // Signature
     $firmar = !empty($_POST['firmar']) ? $_POST['firmar'] : null;
-     $firmar = str_replace('data:image/jpeg;base64,', '', $firmar);
-    // Intentar mover el archivo
+    $firmar = str_replace('data:image/jpeg;base64,', '', $firmar);
+
+    // Try to move the uploaded file
     if (move_uploaded_file($foto['tmp_name'], $targetFilePath)) {
         $datos_personales['foto'] = $targetFilePath;
         
-        // Guardar los datos en la base de datos
+        // Save data to database
         if (guardarDatosDinamico($datos_personales, $datos_epp, $firmar)) {
-            // Éxito al guardar los datos
-            $success_message = "Personal registrado exitosamente";
+            // Data saved successfully
+            $success_message = "Personnel successfully registered";
             include '../views/addPerson.php';
             exit();
         } else {
-            $message = "Error al guardar los datos. Por favor, inténtalo de nuevo.";
+            $message = "Error saving data. Please try again.";
         }
     } else {
-        $message = "Error al cargar la imagen. Por favor, inténtalo de nuevo.";
+        $message = "Error uploading image. Please try again.";
     }
 } else {
-    // Mostrar formulario
-  
+    // Show form
 }
-
 ?>

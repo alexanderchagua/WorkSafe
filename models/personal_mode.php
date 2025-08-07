@@ -1,8 +1,8 @@
 <?php
-// models/personal_mode.php - ACTUALIZADO
+// models/personal_mode.php - UPDATED
 @require_once '../library/connections.php';
 
-// Función para obtener todas las columnas EPP dinámicamente
+// Function to dynamically get all EPP columns
 function getEppFields() {
     try {
         $conn = dataPrueba();
@@ -14,12 +14,12 @@ function getEppFields() {
         $stmt->execute();
         $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Organizar por grupos de EPP
+        // Organize by EPP groups
         $epps = [];
         foreach($columns as $column) {
             $field = $column['Field'];
             
-            // Identificar el tipo de campo
+            // Identify the type of field
             if(strpos($field, 'fecha_entrega_') === 0) {
                 $epp_key = str_replace('fecha_entrega_', '', $field);
                 $epps[$epp_key]['fecha_entrega'] = $field;
@@ -27,10 +27,10 @@ function getEppFields() {
                 $epp_key = str_replace('cambio_', '', $field);
                 $epps[$epp_key]['cambio'] = $field;
             } else {
-                // Campo principal del EPP
+                // Main EPP field
                 $epp_key = $field;
                 if(strpos($field, '_seguridad') !== false || strpos($field, '_casco') !== false) {
-                    // Para los EPP originales como zapato_seguridad, casco_seguridad
+                    // For original EPPs like zapato_seguridad, casco_seguridad
                     $parts = explode('_', $field);
                     if(count($parts) >= 2) {
                         $epp_key = substr($parts[1], 0, 1) . (isset($parts[0]) ? substr($parts[0], 0, 1) : '');
@@ -50,49 +50,49 @@ function getEppFields() {
     }
 }
 
-function guardarDatosDinamico($datos_personales, $datos_epp, $firmar) {
-    $firmar = str_replace('data:image/jpeg;base64,', '', $firmar);
+function guardarDatosDinamico($personal_data, $epp_data, $signature) {
+    $signature = str_replace('data:image/jpeg;base64,', '', $signature);
     
     try {
         $conn = dataPrueba();
         
-        // Construir la consulta dinámicamente
-        $campos_personales = "name, edad, ocupacion, area_trabajo, fecha_cumple, fecha_ingreso, estado, estado_epp, observaciones, sede, foto, firmar";
-        $valores_personales = ":name, :edad, :ocupacion, :area_trabajo, :fecha_cumple, :fecha_ingreso, :estado, :estado_epp, :observaciones, :sede, :foto, :firmar";
+        // Build the query dynamically
+        $personal_fields = "name, edad, ocupacion, area_trabajo, fecha_cumple, fecha_ingreso, estado, estado_epp, observaciones, sede, foto, firmar";
+        $personal_values = ":name, :edad, :ocupacion, :area_trabajo, :fecha_cumple, :fecha_ingreso, :estado, :estado_epp, :observaciones, :sede, :foto, :firmar";
         
-        // Agregar campos EPP dinámicos
-        $campos_epp = "";
-        $valores_epp = "";
-        $parametros_adicionales = [];
+        // Add dynamic EPP fields
+        $epp_fields = "";
+        $epp_values = "";
+        $additional_params = [];
         
-        foreach($datos_epp as $campo => $valor) {
-            $campos_epp .= ", " . $campo;
-            $valores_epp .= ", :" . $campo;
-            $parametros_adicionales[$campo] = $valor;
+        foreach($epp_data as $field => $value) {
+            $epp_fields .= ", " . $field;
+            $epp_values .= ", :" . $field;
+            $additional_params[$field] = $value;
         }
         
-        $sql = "INSERT INTO personal_epp ({$campos_personales}{$campos_epp}) 
-                VALUES ({$valores_personales}{$valores_epp})";
+        $sql = "INSERT INTO personal_epp ({$personal_fields}{$epp_fields}) 
+                VALUES ({$personal_values}{$epp_values})";
         
         $stmt = $conn->prepare($sql);
         
-        // Vincular parámetros personales
-        $stmt->bindParam(':name', $datos_personales['name']);
-        $stmt->bindParam(':edad', $datos_personales['edad']);
-        $stmt->bindParam(':ocupacion', $datos_personales['ocupacion']);
-        $stmt->bindParam(':area_trabajo', $datos_personales['area_trabajo']);
-        $stmt->bindParam(':fecha_cumple', $datos_personales['fecha_cumple']);
-        $stmt->bindParam(':fecha_ingreso', $datos_personales['fecha_ingreso']);
-        $stmt->bindParam(':estado', $datos_personales['estado']);
-        $stmt->bindParam(':estado_epp', $datos_personales['estado_epp']);
-        $stmt->bindParam(':observaciones', $datos_personales['observaciones']);
-        $stmt->bindParam(':sede', $datos_personales['sede']);
-        $stmt->bindParam(':foto', $datos_personales['foto']);
-        $stmt->bindParam(':firmar', $firmar, PDO::PARAM_STR);
+        // Bind personal parameters
+        $stmt->bindParam(':name', $personal_data['name']);
+        $stmt->bindParam(':edad', $personal_data['edad']);
+        $stmt->bindParam(':ocupacion', $personal_data['ocupacion']);
+        $stmt->bindParam(':area_trabajo', $personal_data['area_trabajo']);
+        $stmt->bindParam(':fecha_cumple', $personal_data['fecha_cumple']);
+        $stmt->bindParam(':fecha_ingreso', $personal_data['fecha_ingreso']);
+        $stmt->bindParam(':estado', $personal_data['estado']);
+        $stmt->bindParam(':estado_epp', $personal_data['estado_epp']);
+        $stmt->bindParam(':observaciones', $personal_data['observaciones']);
+        $stmt->bindParam(':sede', $personal_data['sede']);
+        $stmt->bindParam(':foto', $personal_data['foto']);
+        $stmt->bindParam(':firmar', $signature, PDO::PARAM_STR);
         
-        // Vincular parámetros EPP dinámicos
-        foreach($parametros_adicionales as $param => $valor) {
-            $stmt->bindParam(':' . $param, $parametros_adicionales[$param]);
+        // Bind dynamic EPP parameters
+        foreach($additional_params as $param => $value) {
+            $stmt->bindParam(':' . $param, $additional_params[$param]);
         }
         
         $stmt->execute();
@@ -100,12 +100,12 @@ function guardarDatosDinamico($datos_personales, $datos_epp, $firmar) {
         
         return true;
     } catch (PDOException $e) {
-        echo "Error al guardar los datos: " . $e->getMessage();
+        echo "Error saving data: " . $e->getMessage();
         return false;
     }
 }
 
-// Función para obtener todos los registros de personal
+// Function to get all personnel records
 function getAllPersonal() {
     try {
         $conn = dataPrueba();
@@ -118,7 +118,7 @@ function getAllPersonal() {
     }
 }
 
-// Función para obtener un registro específico
+// Function to get a specific personnel record
 function getPersonalById($id) {
     try {
         $conn = dataPrueba();
@@ -131,5 +131,3 @@ function getPersonalById($id) {
         return null;
     }
 }
-
-?>

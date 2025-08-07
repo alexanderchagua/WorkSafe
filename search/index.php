@@ -1,41 +1,34 @@
 <?php
 
-
-// Incluir el archivo con la función para obtener datos
-require_once '../library/connections.php'; // Asegúrate de que esté corregido el nombre del archivo
+// Include the file with the function to fetch data
+require_once '../library/connections.php'; // Make sure the filename is correct
 require_once '../models/personal_mode.php';
-require_once '../models/search_model.php'; 
+require_once '../models/search_model.php';
 
 require_once '../library/nav.php';
 require_once '../models/main-model.php';
 // Get the array of classifications
 
-
-
 $navs = getNavs();
-
-
-
 
 $personas = [];
 
-// Verificar si se ha enviado el formulario
+// Check if the form has been submitted
 if (isset($_GET['nombre']) || isset($_GET['area_trabajo'])) {
-    // Obtener el nombre y el área de trabajo
-    $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';  // Si no existe, asigna una cadena vacía
-    $area_trabajo = isset($_GET['area_trabajo']) ? $_GET['area_trabajo'] : '';  // Si no existe, asigna una cadena vacía
+    // Get the name and work area
+    $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : '';  // If not set, assign an empty string
+    $area_trabajo = isset($_GET['area_trabajo']) ? $_GET['area_trabajo'] : '';  // If not set, assign an empty string
 
-    // Llamar a la función para obtener los datos por nombre
+    // Call the function to get data by name
     $personas = obtenerDatosPorNombre($nombre, $area_trabajo);
 }
 
-// Depuración
-//var_dump($area_trabajo);
+// Debug
+// var_dump($area_trabajo);
 
-
-// Verificar si hay resultados para mostrar
+// Check if there are results to display
 if (!empty($personas)) {
-    // Incluir la página de búsqueda si se encontraron resultados
+    // Include the search page if results were found
     include '../views/search.php';
-    exit; // Terminar la ejecución del script después de incluir la página
+    exit; // Stop script execution after including the page
 }
