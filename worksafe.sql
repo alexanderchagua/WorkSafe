@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-08-2025 a las 18:25:04
--- Versión del servidor: 10.6.17-MariaDB
+-- Tiempo de generación: 08-08-2025 a las 03:08:48
+-- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,6 +35,13 @@ CREATE TABLE `clients` (
   `clientPassword` varchar(255) NOT NULL,
   `clientLevel` enum('1','2','3','4') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clients`
+--
+
+INSERT INTO `clients` (`clientId`, `clientFirstname`, `clientLastname`, `clientEmail`, `clientPassword`, `clientLevel`) VALUES
+(1, 'alex', 'alexander', 'alexander@mail.com', '$2y$10$71.FpMRYF8QwzxREa/1TluqEvUSemCk/e3Oq/deM2j68CQFZ/HPK2', '1');
 
 -- --------------------------------------------------------
 
@@ -97,11 +104,22 @@ INSERT INTO `datos_ssoma` (`id`, `mes`, `anio`, `trabajadores_total`, `trabajado
 
 CREATE TABLE `invetory` (
   `id` int(11) NOT NULL,
-  `Codigo` varchar(255) NOT NULL,
-  `Descripcion` varchar(255) CHARACTER SET utf32 COLLATE utf32_swedish_ci NOT NULL,
-  `Stock` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `description` varchar(255) CHARACTER SET utf32 COLLATE utf32_swedish_ci NOT NULL,
+  `stock` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `invetory`
+--
+
+INSERT INTO `invetory` (`id`, `code`, `description`, `stock`, `quantity`) VALUES
+(2, '123', 'casa', 2, 2),
+(3, '234', 'heat', 12, 12),
+(4, '432', 'shoes safery', 23, 23),
+(5, '678', 'shoes safery', 1, 2),
+(6, '987', 'shoes safery', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -123,7 +141,6 @@ INSERT INTO `nav` (`navId`, `name`) VALUES
 (2, 'Add Personal'),
 (3, 'Search'),
 (4, 'Statistics'),
-(5, 'Login'),
 (6, 'Inventory');
 
 -- --------------------------------------------------------
@@ -157,8 +174,22 @@ CREATE TABLE `personal_epp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `personal_epp`
+--
+
+INSERT INTO `personal_epp` (`id`, `name`, `edad`, `ocupacion`, `area_trabajo`, `fecha_cumple`, `fecha_ingreso`, `estado`, `sede`, `foto`, `estado_epp`, `observaciones`, `casco_seguridad`, `fecha_entrega_cs`, `cambio_cs`, `orejeras_casco`, `fecha_entrega_oc`, `cambio_oc`, `firmar`, `fecha`, `foto_captura`) VALUES
+(10, 'juan', 23, 'administrador', 'adm', '2025-08-05', '2025-07-29', 'activo', 'LIMA', '../uploads/6892d2c7ae7e4_logo.jpeg', 'Activo', 'dfsdfs', 1, '2025-08-05', '2025-08-20', 1, '2025-08-18', '2025-08-14', '', '2025-08-06 03:57:59', NULL),
+(11, 'pedro', 23, 'casa', 'adm', '2025-08-06', '2025-08-06', 'activo', 'LIMA', '../uploads/68942b67530b6_logo.jpeg', 'Activo', 'eweq', 1, '2025-08-06', '2025-08-19', 1, '2025-08-12', '2025-08-20', '', '2025-08-07 04:28:23', NULL);
+
+--
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`clientId`);
 
 --
 -- Indices de la tabla `datos_ssoma`
@@ -168,14 +199,32 @@ ALTER TABLE `datos_ssoma`
   ADD UNIQUE KEY `unique_mes_anio` (`mes`,`anio`);
 
 --
+-- Indices de la tabla `invetory`
+--
+ALTER TABLE `invetory`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `nav`
 --
 ALTER TABLE `nav`
   ADD PRIMARY KEY (`navId`);
 
 --
+-- Indices de la tabla `personal_epp`
+--
+ALTER TABLE `personal_epp`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `clientId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `datos_ssoma`
@@ -184,10 +233,22 @@ ALTER TABLE `datos_ssoma`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
+-- AUTO_INCREMENT de la tabla `invetory`
+--
+ALTER TABLE `invetory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `nav`
 --
 ALTER TABLE `nav`
   MODIFY `navId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `personal_epp`
+--
+ALTER TABLE `personal_epp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
