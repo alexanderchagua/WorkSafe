@@ -1,465 +1,149 @@
-/* Variables del tema principal */
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #34495e;
-    --accent-color: #3498db;
-    --success-color: #27ae60;
-    --warning-color: #f39c12;
-    --danger-color: #e74c3c;
-    --text-color: #ecf0f1;
-    --text-dark: #2c3e50;
-    --hover-color: #2980b9;
-    --active-color: #1abc9c;
-    --background-light: #f8f9fa;
-    --border-color: #dee2e6;
-}
-
-/* Reset y estilos base */
+/* Reset básico */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* Body igual que login */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-light);
-    min-height: 100vh;
-    padding: 20px;
-    line-height: 1.6;
-    color: var(--text-dark);
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Color de fondo general */
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
 /* Contenedor principal */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    animation: fadeIn 0.8s ease-out;
+  max-width: 400px;
+  width: 90%;
+  margin: 40px auto;
+  background: transparent; /* Fondo transparente en desktop */
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid #ccc; /* Mantiene el borde */
+  box-sizing: border-box;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* En pantallas ≥768px, aumentar ancho contenedor */
+@media (min-width: 768px) {
+  .container {
+    max-width: 600px;
+  }
 }
 
 /* Título del formulario */
 .titulo-formulario {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--text-color);
-    text-align: center;
-    padding: 2rem;
-    margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.titulo-formulario i {
-    margin-right: 12px;
-    font-size: 2.2rem;
-    vertical-align: middle;
-    color: var(--active-color);
+/* Labels */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
 }
 
-/* Formulario principal */
-.formulario-epp {
-    padding: 3rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px;
-    background: white;
-}
-
-/* Labels con iconos */
-.formulario-epp label {
-    display: flex;
-    flex-direction: column;
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1rem;
-    position: relative;
-    margin-bottom: 0.5rem;
-}
-
-.formulario-epp label i {
-    margin-right: 8px;
-    color: var(--accent-color);
-    width: 20px;
-    text-align: center;
-}
-
-/* Inputs de texto y número */
+/* Inputs y selects */
 .input-text,
 .input-date,
-.select {
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background: white;
-    margin-top: 8px;
-    font-family: inherit;
-}
-
-.input-text:focus,
-.input-date:focus,
-.select:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    transform: translateY(-1px);
-}
-
-.input-text:hover,
-.input-date:hover,
-.select:hover {
-    border-color: var(--hover-color);
-}
-
-/* Select específico */
-.select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23718096' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 12px center;
-    background-repeat: no-repeat;
-    background-size: 16px;
-    padding-right: 50px;
-    appearance: none;
-}
-
-/* Textarea */
-.input-area {
-    padding: 15px 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    resize: vertical;
-    min-height: 120px;
-    margin-top: 8px;
-    transition: all 0.3s ease;
-}
-
-.input-area:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-}
-
-/* Canvas para foto capturada */
-canvas {
-    border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    margin-top: 8px;
-    background: var(--background-light);
-    min-height: 200px;
-    width: 100%;
-    transition: border-color 0.3s ease;
-}
-
-canvas:hover {
-    border-color: var(--accent-color);
-}
-
-/* Input de archivo */
+.select,
 input[type="file"] {
-    padding: 15px;
-    border: 2px dashed var(--accent-color);
-    border-radius: 8px;
-    background: rgba(52, 152, 219, 0.05);
-    margin-top: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    width: 100%;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  background: white;
+  box-sizing: border-box;
+  cursor: text;
 }
 
-input[type="file"]:hover {
-    border-color: var(--hover-color);
-    background: rgba(52, 152, 219, 0.1);
+/* Select cursor pointer */
+.select {
+  cursor: pointer;
 }
 
-/* Checkboxes */
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
-    margin-top: 2px;
-    accent-color: var(--success-color);
-    cursor: pointer;
-}
-
-label:has(input[type="checkbox"]) {
-    flex-direction: row;
-    align-items: flex-start;
-    font-weight: 500;
-    padding: 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-
-label:has(input[type="checkbox"]):hover {
-    background: rgba(52, 152, 219, 0.05);
-    border-color: var(--accent-color);
-}
-
-/* Botón de envío */
 .btn-enviar {
-    background: linear-gradient(135deg, var(--success-color), #219a52);
-    color: white;
-    border: none;
-    padding: 18px 40px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-    margin-top: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  width: auto;
+  min-width: 150px;
+  padding: 0.8rem 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 20px auto 30px auto; /* Cambié el margen inferior a 30px */
 }
+
 
 .btn-enviar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
-    background: linear-gradient(135deg, #219a52, #27ae60);
+  background-color: #218838;
 }
 
-.btn-enviar:active {
-    transform: translateY(0);
+/* Iconos dentro de labels (opcional) */
+label i {
+  margin-right: 0.5rem;
+  color: #28a745;
 }
 
-.btn-enviar i {
-    margin-right: 10px;
+/* Canvas de firma (mismo ancho que inputs) */
+canvas#firmaCanvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
-/* Sección de estadísticas (opcional para mostrar progreso) */
-.stats-section {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: var(--text-color);
-    padding: 2rem;
-    text-align: center;
+/* Botón limpiar firma */
+button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease;
 }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
+button:hover {
+  background-color: #218838;
 }
 
-.stat-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
-    backdrop-filter: blur(10px);
+/* Mensajes de error o advertencia, si usas */
+.message {
+  background-color: #ffdddd;
+  color: #a94442;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.stat-card:hover {
-    transform: translateY(-3px);
-}
-
-.stat-number {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--active-color);
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-/* Responsive Design */
-@media (min-width: 768px) {
-    .formulario-epp {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        padding: 3rem;
-    }
-    
-    /* Elementos que ocupan toda la fila */
-    .formulario-epp label:has([name="observaciones"]),
-    .formulario-epp label:has([name="firmar"]),
-    .formulario-epp label:has([name="foto_captura"]),
-    .formulario-epp label:has([name="foto"]),
-    .btn-enviar {
-        grid-column: 1 / -1;
-    }
-    
-    .titulo-formulario {
-        font-size: 2.5rem;
-        padding: 3rem 2rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    body {
-        padding: 40px;
-    }
-    
-    .container {
-        max-width: 1000px;
-    }
-    
-    .formulario-epp {
-        padding: 4rem;
-    }
-}
-
-/* Estilos para pantallas pequeñas */
-@media (max-width: 767px) {
-    body {
-        padding: 10px;
-    }
-    
-    .formulario-epp {
-        padding: 2rem 1.5rem;
-        gap: 20px;
-    }
-    
-    .titulo-formulario {
-        font-size: 1.6rem;
-        padding: 2rem 1rem;
-    }
-    
-    .titulo-formulario i {
-        font-size: 1.8rem;
-    }
-    
-    .input-text,
-    .input-date,
-    .select,
-    .input-area {
-        padding: 12px 15px;
-    }
-    
-    .btn-enviar {
-        padding: 15px 30px;
-        font-size: 1rem;
-    }
-}
-
-/* Estados de validación */
-.input-text:invalid,
-.input-date:invalid,
-.select:invalid {
-    border-color: var(--danger-color);
-}
-
-.input-text:valid,
-.input-date:valid,
-.select:valid {
-    border-color: var(--success-color);
-}
-
-/* Animaciones suaves */
-.formulario-epp label {
-    animation: slideUp 0.6s ease-out forwards;
-    opacity: 0;
-}
-
-@keyframes slideUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Retrasos escalonados para la animación */
-.formulario-epp label:nth-child(1) { animation-delay: 0.1s; }
-.formulario-epp label:nth-child(2) { animation-delay: 0.15s; }
-.formulario-epp label:nth-child(3) { animation-delay: 0.2s; }
-.formulario-epp label:nth-child(4) { animation-delay: 0.25s; }
-.formulario-epp label:nth-child(5) { animation-delay: 0.3s; }
-.formulario-epp label:nth-child(6) { animation-delay: 0.35s; }
-.formulario-epp label:nth-child(7) { animation-delay: 0.4s; }
-.formulario-epp label:nth-child(8) { animation-delay: 0.45s; }
-.formulario-epp label:nth-child(9) { animation-delay: 0.5s; }
-.formulario-epp label:nth-child(10) { animation-delay: 0.55s; }
-
-/* Estilo especial para secciones del formulario */
-.form-section {
-    background: rgba(248, 249, 250, 0.8);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.form-section h3 {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--accent-color);
-    display: flex;
-    align-items: center;
-}
-
-.form-section h3 i {
-    margin-right: 10px;
-    color: var(--accent-color);
-}
-
-/* Indicadores de progreso */
-.progress-indicator {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
-}
-
-.progress-bar {
-    width: 300px;
-    height: 8px;
-    background-color: var(--border-color);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-color), var(--active-color));
-    width: 0%;
-    transition: width 0.3s ease;
-}
-
-/* Footer del formulario */
-.form-footer {
-    background: var(--background-light);
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-dark);
-    font-size: 0.9rem;
-}
-
-.form-footer p {
-    margin-bottom: 0.5rem;
-}
-
-.form-footer a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.form-footer a:hover {
-    color: var(--hover-color);
+/* Responsividad igual que login */
+@media (max-width: 400px) {
+  .container {
+    margin: 20px;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.85); /* Fondo semitransparente en móviles para legibilidad */
+    border: 1px solid #bbb;
+  }
 }
