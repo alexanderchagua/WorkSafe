@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkSafe Login</title>
     <meta name="description" content="WorkSafe Login" />
+    <link rel="stylesheet" href="/worksafe/css/login.css">
+
 </head>
 
 <body>

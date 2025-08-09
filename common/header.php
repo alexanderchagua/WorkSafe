@@ -10,6 +10,7 @@
     <title><?php echo isset($pageTitle) ? $pageTitle : 'worksafe - system safe'; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="/worksafe/css/style.css" />
+    <link rel="stylesheet" href="/worksafe/css/header.css" />
     <link rel="stylesheet" href="/worksafe/css/addperson.css" />
   
     <!-- Intl Tel Input CSS -->
@@ -23,93 +24,79 @@
             <div class="logo-text">Work<span>Safe</span></div>
         </div>
 
+        <!-- Botón hamburguesa para móvil -->
         <div class="hamburger" id="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        <!-- 
-        Este es el bloque original en header.php.
-        El problema es que $navList no está definido si accedemos a páginas
-        que no pasan por el controlador principal (index.php).
-        Eso genera un warning de "Undefined variable" como por ejemplo ppe_inventory.php que es donde estoy trabajando ahora. .
-        -->
-        <!-- <nav class="nav-menu" id="navMenu">
-        <?php echo $navList; ?>
-        </nav> -->
-
-        <!-- 
-        He modificado este bloque para evitar el warning de "Undefined variable $navList"
-        cuando se accede directamente a páginas que aún no pasan
-        por el controlador principal (index.php).
-
-        Esta solución usa 'isset()' para verificar si $navList está definido
-        antes de intentar mostrarlo. Así el header no rompe y queda pendiente
-        que el backend genere esta variable correctamente más adelante.
-        -->
+        <!-- Menú principal -->
         <nav class="nav-menu" id="navMenu">
-            <?php
-            if (isset($navList)) {
-                echo $navList;
-            } else {
-                // Esto evita el error y puede ser temporal
-                echo '<ul class="navigation"><li><a href="/worksafe/index.php">Home</a></li></ul>';
-            }
-            ?>
+            <ul class="navigation">
+                <?php
+                if (isset($navList)) {
+                    // Quita etiquetas <ul> del navList si ya las trae
+                    echo preg_replace('/<\/?ul[^>]*>/', '', $navList);
+                } else {
+                    echo '<li><a href="/worksafe/index.php">Home</a></li>';
+                }
+                ?>
+                <!-- Botón Login / Dropdown como último elemento -->
+                <li class="user-nav">
+                    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button">
+                                <i class="fas fa-user"></i>
+                                <?php echo htmlspecialchars($_SESSION['clientData']['clientFirstname'] ?? 'User'); ?>
+                                <i class="fas fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="/worksafe/accounts/?action=updateInfo">Edit Profile</a>
+                                <a href="/worksafe/accounts/?action=Logout">Logout</a>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <a href="/worksafe/accounts/?action=login" class="user-btn">
+                            <i class="fas"></i> Login
+                        </a>
+                    <?php endif; ?>
+                </li>
+            </ul>
         </nav>
-
-
-
-        <div class="user-menu">
-            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" type="button">
-                        <i class="fas fa-user"></i>
-                        <?php echo htmlspecialchars($_SESSION['clientData']['clientFirstname'] ?? 'User'); ?>
-                        <i class="fas fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="/worksafe/accounts/?action=updateInfo">Edit Profile</a>
-                        <a href="/worksafe/accounts/?action=Logout">Logout</a>
-                    </div>
-                </div>
-            <?php else: ?>
-                <a href="/worksafe/accounts/?action=login" class="user-btn">
-                    <i class="fas"></i> Login
-                </a>
-            <?php endif; ?>
-        </div>
     </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('navMenu');
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
 
-            hamburger.addEventListener('click', function() {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
+    // Toggle menú hamburguesa
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
 
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', function() {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            const currentAction = '<?php echo isset($_GET['action']) ? $_GET['action'] : 'home'; ?>';
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                const href = link.getAttribute('href');
-                if (href.includes('action=' + currentAction) || (currentAction === 'home' && !href.includes('action='))) {
-                    link.classList.add('active');
-                }
-            });
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         });
-    </script>
+    });
 
-    <script src="/WorkSafe/views/js/dropdown.js"></script>
+    // Resaltar enlace activo según el parámetro "action"
+    const currentAction = '<?php echo isset($_GET['action']) ? $_GET['action'] : 'home'; ?>';
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href.includes('action=' + currentAction) || (currentAction === 'home' && !href.includes('action='))) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+
+<script src="/WorkSafe/views/js/dropdown.js"></script>
+
 </body>
-
 </html>

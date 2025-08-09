@@ -70,7 +70,7 @@ body {
   color: var(--active-color);
 }
 
-.nav-menu {
+/* .nav-menu {
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -113,8 +113,9 @@ body {
   margin-right: 8px;
   font-size: 1.1rem;
 }
-
+ */
 /* User Menu */
+
 .user-menu {
   position: relative;
 }
@@ -136,7 +137,7 @@ body {
 }
 
 /* Hamburger Menu */
-.hamburger {
+/* .hamburger {
   display: none;
   cursor: pointer;
   width: 30px;
@@ -165,7 +166,7 @@ body {
 
 .hamburger.active span:nth-child(3) {
   transform: translateY(-11px) rotate(-45deg);
-}
+} */
 
 /* MAIN CONTENT STYLES */
 .main-content {

@@ -1,0 +1,149 @@
+/* ======== DESKTOP ======== */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem; /* aquí doy más espacio arriba y abajo para que el header respire */
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 8px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.logo-text span {
+    color: var(--active-color);
+}
+
+.nav-menu {
+    flex: 1; /* con esto hago que el menú ocupe el espacio sobrante */
+}
+
+.nav-menu ul {
+    display: flex;
+    justify-content: center; /* aquí centro todos los links del menú */
+    align-items: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-menu li {
+    list-style: none;
+}
+
+.user-nav {
+    margin-left: auto; /* aquí empujo la parte del login a la derecha en pantallas grandes */
+}
+
+.user-btn {
+    padding: .6rem 1rem;
+    border-radius: 6px;
+    background: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap; /* hago que el botón de login no se parta en varias líneas */
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff; /* pinto la hamburguesa de blanco para que se vea mejor */
+    border-radius: 2px;
+}
+
+/* ======== Dropdown horizontal en desktop ======== */
+@media (min-width: 1068px) {
+    .dropdown-menu {
+        display: flex; /* pongo los enlaces uno al lado del otro */
+        gap: 15px; /* doy espacio entre ellos */
+        position: static; /* lo hago estático para que no se superponga al header */
+        background: transparent; /* quito fondo para que parezca parte del header */
+        box-shadow: none; /* quito sombra */
+        padding: 0; /* elimino padding extra */
+    }
+
+    .dropdown-menu a {
+        padding: 0; /* evito que se vean con espacio vertical extra */
+        color: #fff; /* hago que el texto sea blanco para que combine con el header */
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: flex; /* hago que siempre se muestren los enlaces al pasar el ratón */
+    }
+
+    .dropdown-toggle i.fas.fa-caret-down {
+        display: none; /* oculto la flecha en desktop porque ya no es desplegable */
+    }
+}
+
+/* ======== MÓVIL ======== */
+@media (max-width: 1067px) { /* aquí muestro hamburguesa antes */
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none; /* lo oculto por defecto */
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        z-index: 999;
+        padding: 0.5rem 0; /* doy espacio dentro del menú desplegado */
+    }
+
+    .nav-menu.active {
+        display: block; /* lo muestro cuando se activa */
+    }
+
+    .nav-menu ul {
+        flex-direction: column; /* pongo los links en columna */
+        align-items: center;
+    }
+
+    .nav-menu ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu ul li a {
+        display: block;
+        padding: .75rem 1rem;
+        width: 100%; /* cada link ocupa todo el ancho */
+    }
+
+    /* Login como un link más en móvil */
+    .user-nav {
+        margin-left: 0; /* quito empuje hacia la derecha */
+        text-align: center; /* centro el login */
+        margin-top: 0.5rem; /* doy un poco de espacio arriba */
+    }
+}
