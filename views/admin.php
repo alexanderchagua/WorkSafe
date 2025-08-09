@@ -1,5 +1,6 @@
 <?php
 // Redirección inmediata si el usuario no está autenticado
+if (!isset($_SESSION)) session_start();
 
 if (!isset($_SESSION['clientData'])) {
     header('Location: /worksafe/accounts/index.php?action=login');
@@ -16,6 +17,36 @@ $client = $_SESSION['clientData'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WorkSafe Admin Panel</title>
     <meta name="description" content="WorkSafe Admin Panel" />
+    <style>
+      main {
+        max-width: 600px;
+        margin: 2rem auto; /* centra el contenedor */
+        padding: 1rem;
+        text-align: left; /* alinea el texto a la izquierda */
+      }
+      main ul {
+        list-style: none;
+        padding: 0;
+      }
+      main ul li {
+        margin: 0.5rem 0;
+      }
+      main a {
+        color: var(--active-color, #007acc);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      main a:hover {
+        text-decoration: underline;
+      }
+      .message {
+        background-color: #dff0d8;
+        color: #3c763d;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin: 1rem 0;
+      }
+    </style>
 </head>
 
 <body>
