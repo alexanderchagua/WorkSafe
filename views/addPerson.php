@@ -25,7 +25,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="../css/addperson.css">
+ <link rel="stylesheet" href="/worksafe/css/addperson.css">
 
 <body>
     <div class="container">
