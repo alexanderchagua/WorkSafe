@@ -96,7 +96,7 @@ input[type="file"] {
 /* Iconos dentro de labels (opcional) */
 label i {
   margin-right: 0.5rem;
-  color: #28a745;
+   color: #666666;
 }
 
 /* Canvas de firma (mismo ancho que inputs) */
@@ -127,7 +127,7 @@ button:hover {
   background-color: #218838;
 }
 
-/* Mensajes de error o advertencia, si usas */
+
 .message {
   background-color: #ffdddd;
   color: #a94442;
