@@ -2,10 +2,10 @@
 
 function dataPrueba(){
     $server = 'localhost';
-    $dbname= 'prueba';
-    $username = 'client';
+    $dbname= 'worksafe';
+    $username = 'Client';
     //$password = '9X(meYDO7PdQ)5!9';
-    $password = 'XzTfr.-5_s@02EZ9'; 
+    $password = 'A6sk-4)6HiKHlUMt'; 
     $dsn = "mysql:host=$server;dbname=$dbname";
     $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
