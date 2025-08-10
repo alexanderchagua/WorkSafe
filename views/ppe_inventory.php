@@ -31,6 +31,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/worksafe/css/inventory.css">
 </head>
 <body>
   <div class="header-content">

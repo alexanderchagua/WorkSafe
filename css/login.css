@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Color de fondo general */
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 400px;
+  width: 90%;
+  margin: 40px auto;
+  background: transparent; /* Fondo transparente en desktop */
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid #ccc; /* Mantiene el borde */
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.message {
+  background-color: #ffdddd;
+  color: #a94442;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+form input[type="submit"] {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #28a745; /* Verde del resto del sitio */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+  background-color: #218838;
+}
+
+.link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #28a745;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive para móviles */
+@media (max-width: 400px) {
+  main {
+    margin: 20px;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.85); /* Fondo semitransparente en móviles para legibilidad */
+    border: 1px solid #bbb;
+  }
+}
