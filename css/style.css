@@ -675,7 +675,7 @@ body {
 
 .dropdown-menu.show {
   display: block;
-} 
+}
 
 /* PPE INVENTORY ESTILO */
 /* === Contenedor Principal === */
@@ -790,8 +790,8 @@ body {
 }
 
 /* Inputs pequeños y estilizados */
-.data-table td:last-child form input[type="text"],
-.data-table td:last-child form input[type="number"] {
+.data-table td:last-child form input[type='text'],
+.data-table td:last-child form input[type='number'] {
   width: 65px;
   padding: 0.25rem 0.4rem;
   font-size: 0.85rem;
@@ -802,8 +802,8 @@ body {
   transition: border-color 0.2s ease;
 }
 
-.data-table td:last-child form input[type="text"]:focus,
-.data-table td:last-child form input[type="number"]:focus {
+.data-table td:last-child form input[type='text']:focus,
+.data-table td:last-child form input[type='number']:focus {
   border-color: #28a745;
   outline: none;
 }
@@ -850,8 +850,8 @@ body {
     justify-content: flex-start;
   }
 
-  .data-table td:last-child form input[type="text"],
-  .data-table td:last-child form input[type="number"] {
+  .data-table td:last-child form input[type='text'],
+  .data-table td:last-child form input[type='number'] {
     width: 50px;
     font-size: 0.8rem;
   }
@@ -862,9 +862,6 @@ body {
     padding: 0.3rem 0.8rem;
   }
 }
-
-
-
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
@@ -935,8 +932,6 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
-
-
 
 @media (max-width: 480px) {
   .main-content {

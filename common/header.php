@@ -10,20 +10,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-        <?php 
+        <?php
         // Display the page title if $pageTitle is set, otherwise show a default title
-        echo isset($pageTitle) ? $pageTitle : 'worksafe - system safe'; 
+        echo isset($pageTitle) ? $pageTitle : 'worksafe - system safe';
         ?>
     </title>
 
     <!-- External Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    
+
     <!-- Main CSS Styles -->
     <link rel="stylesheet" href="/worksafe/css/style.css" />
     <link rel="stylesheet" href="/worksafe/css/header.css" />
     <link rel="stylesheet" href="/worksafe/css/addperson.css" />
-  
+
     <!-- Intl Tel Input CSS for international phone number formatting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.5/build/css/intlTelInput.min.css" />
 </head>
@@ -64,9 +64,9 @@
                         <div class="dropdown">
                             <button class="dropdown-toggle" type="button">
                                 <i class="fas fa-user"></i>
-                                <?php 
+                                <?php
                                 // Display the logged-in user's first name, fallback to "User"
-                                echo htmlspecialchars($_SESSION['clientData']['clientFirstname'] ?? 'User'); 
+                                echo htmlspecialchars($_SESSION['clientData']['clientFirstname'] ?? 'User');
                                 ?>
                                 <i class="fas fa-caret-down"></i>
                             </button>
@@ -86,40 +86,41 @@
         </nav>
     </header>
 
-<script>
-// Wait for the DOM to be fully loaded before running scripts
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
+    <script>
+        // Wait for the DOM to be fully loaded before running scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
 
-    // Toggle hamburger menu for mobile navigation
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+            // Toggle hamburger menu for mobile navigation
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
 
-    // Close menu when a navigation link is clicked (mobile UX improvement)
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            // Close menu when a navigation link is clicked (mobile UX improvement)
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Highlight the active menu link based on the "action" URL parameter
+            const currentAction = '<?php echo isset($_GET['action']) ? $_GET['action'] : 'home'; ?>';
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.includes('action=' + currentAction) ||
+                    (currentAction === 'home' && !href.includes('action='))) {
+                    link.classList.add('active');
+                }
+            });
         });
-    });
+    </script>
 
-    // Highlight the active menu link based on the "action" URL parameter
-    const currentAction = '<?php echo isset($_GET['action']) ? $_GET['action'] : 'home'; ?>';
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href.includes('action=' + currentAction) || 
-            (currentAction === 'home' && !href.includes('action='))) {
-            link.classList.add('active');
-        }
-    });
-});
-</script>
-
-<!-- External JavaScript for dropdown menu behavior -->
-<script src="/WorkSafe/views/js/dropdown.js"></script>
+    <!-- External JavaScript for dropdown menu behavior -->
+    <script src="/worksafe/views/js/dropdown.js"></script>
 
 </body>
+
 </html>
