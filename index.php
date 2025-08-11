@@ -17,52 +17,7 @@ $navList = buildNavList($navs);
 require_once './models/ppe_inventory_model.php';
 
 $pdo = dataPrueba();
-$stmt = $pdo->query("SELECT * FROM invetory");
-$datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    if (deleteRecord($id)) {
-        echo "Record deleted successfully.";
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Error deleting the record.";
-    }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['code'])) {
-        $code = $_POST['code'];
-        $description = $_POST['description'];
-        $stock = $_POST['stock'];
-        $quantity = $_POST['quantity'];
-
-        if (insertData($code, $description, $stock, $quantity)) {
-            echo "Data inserted successfully.";
-            header("Location: index.php?action=Inventory");
-            exit();
-        } else {
-            echo "Error inserting the data.";
-        }
-    }
-
-    if (isset($_POST['edit_id'])) {
-        $id = $_POST['edit_id'];
-        $code = $_POST['newCode'];
-        $description = $_POST['newDescription'];
-        $stock = $_POST['newStock'];
-        $quantity = $_POST['newQuantity'];
-
-        if (updateRecord($id, $code, $description, $stock, $quantity)) {
-            echo "Record updated successfully.";
-            header("Location: index.php");
-            exit();
-        } else {
-            echo "Error updating the record.";
-        }
-    }
-}
 
 $action = filter_input(INPUT_GET, 'action');
 if (!$action) {
@@ -131,10 +86,71 @@ switch ($action) {
         }
         break;
         
-    case 'Inventory':
-        include './views/ppe_inventory.php';
-        break;
+   case 'Inventory':
+    $stmt = $pdo->query("SELECT * FROM invetory");
+    $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Handle delete operation
+    if (isset($_GET['delete'])) {
+        $id = $_GET['delete'];
+        if (deleteRecord($id)) {
+            $_SESSION['message'] = "Record deleted successfully.";
+        } else {
+            $_SESSION['error'] = "Error deleting the record.";
+        }
+        header("Location: index.php?action=Inventory");
+        exit();
+    }
+
+    // Handle form submissions
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['code'])) {
+            // Insert new record
+            $code = $_POST['code'];
+            $description = $_POST['description'];
+            $stock = $_POST['stock'];
+            $quantity = $_POST['quantity'];
+
+            if (insertData($code, $description, $stock, $quantity)) {
+                $_SESSION['message'] = "Data inserted successfully.";
+            } else {
+                $_SESSION['error'] = "Error inserting the data.";
+            }
+            header("Location: index.php?action=Inventory");
+            exit();
+        }
+
+        if (isset($_POST['edit_id'])) {
+            // Update existing record
+            $id = $_POST['edit_id'];
+            $code = $_POST['newCode'];
+            $description = $_POST['newDescription'];
+            $stock = $_POST['newStock'];
+            $quantity = $_POST['newQuantity'];
+
+            if (updateRecord($id, $code, $description, $stock, $quantity)) {
+                $_SESSION['message'] = "Record updated successfully.";
+            } else {
+                $_SESSION['error'] = "Error updating the record.";
+            }
+            header("Location: index.php?action=Inventory");
+            exit();
+        }
+    }
+    
+    // Display messages if they exist
+    if (isset($_SESSION['message'])) {
+        echo "<p style='color: green;'>".$_SESSION['message']."</p>";
+        unset($_SESSION['message']);
+    }
+    if (isset($_SESSION['error'])) {
+        echo "<p style='color: red;'>".$_SESSION['error']."</p>";
+        unset($_SESSION['error']);
+    }
+    
+    include './views/ppe_inventory.php';
+    break;
+    
     case 'Join':
         include './views/join_form.php';
         break;

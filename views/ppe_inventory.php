@@ -98,15 +98,15 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
             <td><?= $dato['stock'] ?></td>
             <td><?= $dato['quantity'] ?></td>
             <td>
-              <form method="post" action="index.php?action=PPE Inventory">
-                <input type="hidden" name="modificar_id" value="<?= $dato['id'] ?>">
-                <input type="text" name="nuevoCodigo" value="<?= $dato['code'] ?>">
-                <input type="text" name="nuevaDescripcion" value="<?= $dato['description'] ?>">
-                <input type="number" name="nuevoStock" value="<?= $dato['stock'] ?>">
-                <input type="number" name="nuevaCantidad" value="<?= $dato['quantity'] ?>">
-                <button type="submit">Update</button>
-              </form>
-              <a href="index.php?eliminar=<?= $dato['id'] ?>">Delete</a>
+              <form method="post" action="index.php?action=Inventory">
+    <input type="hidden" name="edit_id" value="<?= $dato['id'] ?>">
+    <input type="text" name="newCode" value="<?= $dato['code'] ?>">
+    <input type="text" name="newDescription" value="<?= $dato['description'] ?>">
+    <input type="number" name="newStock" value="<?= $dato['stock'] ?>">
+    <input type="number" name="newQuantity" value="<?= $dato['quantity'] ?>">
+    <button type="submit">Update</button>
+</form>
+<a href="index.php?action=Inventory&delete=<?= $dato['id'] ?>" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </td>
           </tr>
         <?php endforeach; ?>
