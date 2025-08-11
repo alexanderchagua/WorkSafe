@@ -1,5 +1,5 @@
 <?php
-// models/SsomaModel.php
+// models
 require_once './library/connections.php';
 
 function obtenerDatosPorMes($mes) {

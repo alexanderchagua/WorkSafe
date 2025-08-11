@@ -1,12 +1,14 @@
 <?php
-// controllers/SsomaController.php
+// controllers/
 require_once './models/model_stadistic.php';
 require_once './library/connections.php';
 require_once './models/main-model.php';
-
-
+require_once './library/nav.php';
+$navs = getNavs();
+$navList = buildNavList($navs);
 
 function mostrarDashboard() {
+    global $navList, $navs;
     $mesActual = isset($_GET['mes']) ? $_GET['mes'] : 'enero';
     $datos = obtenerDatosPorMes($mesActual);
     $resumenAnual = obtenerResumenAnual();
@@ -101,3 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     mostrarDashboard();
 }
 ?>
+
+
+
