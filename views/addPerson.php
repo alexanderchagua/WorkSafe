@@ -9,29 +9,28 @@ if (session_status() === PHP_SESSION_NONE) {
 // Check if the user is logged in
 if (!isset($_SESSION['clientData'])) {
     echo "<p style='color: red;'>Access denied. You must be logged in.</p>";
-    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    header("refresh:3;url=/worksafe/index.php"); // Redirect after 3 seconds
     exit;
 }
 
 // Check if the user has level 1 access
 if ($_SESSION['clientData']['clientLevel'] != 1) {
     echo "<p style='color: red;'>You do not have permission to access this page.</p>";
-    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    header("refresh:3;url=/worksafe/index.php"); // Redirect after 3 seconds
     exit;
 }
 ?>
 
-
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
- <link rel="stylesheet" href="/worksafe/css/addperson.css">
+<link rel="stylesheet" href="/worksafe/css/addperson.css">
 
 <body>
     <div class="container">
         <h2 class="titulo-formulario"><i class="fas fa-hard-hat"></i> PPE Registration Form</h2>
 
-        <form action="/worksafe/personal_epp/index.php" enctype="multipart/form-data" method="post" class="formulario-epp">
+        <form action="/worksafe/personal_epp/index.php" enctype="multipart/form-data" method="post" class="formulario-epp" id="modificarForm">
             
             <label><i class="fas fa-user"></i> Name:
                 <input type="text" name="name" required class="input-text">
@@ -89,6 +88,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 <input type="text" name="observaciones" class="input-text">
             </label>
 
+            <!-- Safety Helmet -->
             <label><input type="checkbox" name="casco_seguridad"> <i class="fas fa-hard-hat"></i> Safety Helmet Delivered</label>
             <label><i class="fas fa-calendar-day"></i> Helmet Delivery Date:
                 <input type="date" name="fecha_entrega_cs" class="input-date">
@@ -97,6 +97,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 <input type="date" name="cambio_cs" class="input-date">
             </label>
 
+            <!-- Earmuffs -->
             <label><input type="checkbox" name="orejeras_casco"> <i class="fas fa-headphones-alt"></i> Earmuffs Delivered</label>
             <label><i class="fas fa-calendar-day"></i> Earmuffs Delivery Date:
                 <input type="date" name="fecha_entrega_oc" class="input-date">
@@ -105,25 +106,19 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 <input type="date" name="cambio_oc" class="input-date">
             </label>
 
-           
-
-              <div>
+            <!-- Digital Signature -->
+            <div>
                 <label><i class="fas fa-signature"></i> Digital Signature:</label><br>
                 <canvas id="firmaCanvas" width="400" height="200" style="border:1px solid #000;"></canvas><br>
-                <button type="button" onclick="limpiarCanvas()">Limpiar Firma</button>
+                <button type="button" onclick="limpiarCanvas()">Clear Signature</button>
                 <input type="hidden" id="firmar" name="firmar">
             </div>
- 
-            
-        </div>
-    
-    
-    </div>
 
             <button type="submit" class="btn-enviar"><i class="fas fa-save"></i> Save</button>
         </form>
     </div>
-    <script >
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var canvas = document.getElementById('firmaCanvas');
             var ctx = canvas.getContext('2d');
@@ -131,17 +126,17 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
             var lastX = 0;
             var lastY = 0;
 
-            // Rellenar el fondo del canvas con blanco
+            // Fill canvas background with white
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Eventos del mouse para dibujar en el canvas
+            // Mouse events for drawing
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mouseleave', stopDrawing);
 
-            // Eventos táctiles para dispositivos móviles
+            // Touch events for mobile devices
             canvas.addEventListener('touchstart', function(e) {
                 if (e.touches.length === 1) {
                     var touch = e.touches[0];
@@ -151,7 +146,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
 
             canvas.addEventListener('touchmove', function(e) {
                 if (e.touches.length === 1) {
-                    e.preventDefault(); // Evitar el scroll mientras se dibuja
+                    e.preventDefault(); // Prevent scrolling while drawing
                     var touch = e.touches[0];
                     draw(touch);
                 }
@@ -159,13 +154,13 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
 
             canvas.addEventListener('touchend', stopDrawing);
 
-            // Función para empezar a dibujar
+            // Start drawing function
             function startDrawing(e) {
                 drawing = true;
                 [lastX, lastY] = getCanvasCoords(e);
             }
 
-            // Función para dibujar en el canvas
+            // Draw on the canvas
             function draw(e) {
                 if (!drawing) return;
                 var [x, y] = getCanvasCoords(e);
@@ -178,7 +173,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 [lastX, lastY] = [x, y];
             }
 
-            // Función para obtener la posición X e Y en el canvas
+            // Get X and Y coordinates on the canvas
             function getCanvasCoords(e) {
                 var rect = canvas.getBoundingClientRect();
                 var clientX = e.clientX || e.touches[0].clientX;
@@ -186,38 +181,32 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 return [clientX - rect.left, clientY - rect.top];
             }
 
-            // Función para detener el dibujo
+            // Stop drawing
             function stopDrawing() {
                 drawing = false;
             }
 
-            // Escuchar el evento submit del formulario
+            // Listen for form submit event
             document.getElementById('modificarForm').addEventListener('submit', function(event) {
-                // Prevenir el envío automático del formulario
-                event.preventDefault();
-                // Guardar la firma antes de enviar el formulario
-                guardarFirma();
+                event.preventDefault(); // Prevent automatic form submission
+                saveSignature(); // Save signature before sending form
             });
 
-            // Función para obtener la imagen base64 del canvas como JPEG o PNG y asignarla al input hidden
-           
-            function guardarFirma() {
-    var dataURL = canvas.toDataURL('image/jpeg');
-    var base64Data = dataURL.split(',')[1];
-    document.getElementById('firmar').value = base64Data;
-    document.getElementById('modificarForm').submit();
-}
+            // Save canvas signature as Base64 and assign to hidden input
+            function saveSignature() {
+                var dataURL = canvas.toDataURL('image/jpeg');
+                var base64Data = dataURL.split(',')[1];
+                document.getElementById('firmar').value = base64Data;
+                document.getElementById('modificarForm').submit();
+            }
 
-            // Función para limpiar el canvas de la firma
+            // Clear canvas
             window.limpiarCanvas = function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'white'; // Asegurarse de que el fondo vuelva a ser blanco
+                ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
         });
-    // Vis
-    
-    
     </script>
 </body>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/footer.php"; ?>

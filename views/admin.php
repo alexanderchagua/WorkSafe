@@ -1,5 +1,5 @@
 <?php
-// Redirección inmediata si el usuario no está autenticado
+// Immediate redirection if the user is not authenticated
 if (!isset($_SESSION)) session_start();
 
 if (!isset($_SESSION['clientData'])) {
@@ -20,9 +20,9 @@ $client = $_SESSION['clientData'];
     <style>
       main {
         max-width: 600px;
-        margin: 2rem auto; /* centra el contenedor */
+        margin: 2rem auto; /* center the container */
         padding: 1rem;
-        text-align: left; /* alinea el texto a la izquierda */
+        text-align: left; /* align text to the left */
       }
       main ul {
         list-style: none;

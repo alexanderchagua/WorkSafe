@@ -39,21 +39,21 @@
         width: 100%;
         box-sizing: border-box;
       }
-      /* Botones más pequeños y sutiles */
+      /* Smaller, more subtle buttons */
       input[type="submit"] {
-        background-color: #f0f0f0; /* gris muy claro */
-        color: #333; /* gris oscuro */
+        background-color: #f0f0f0; /* very light gray */
+        color: #333; /* dark gray */
         border: 1px solid #ccc;
-        padding: 0.5rem 0.75rem; /* más pequeño */
+        padding: 0.5rem 0.75rem; /* smaller padding */
         border-radius: 4px;
         font-size: 0.9rem;
         cursor: pointer;
-        width: auto; /* tamaño ajustado al texto */
-        align-self: flex-start; /* que no ocupe todo el ancho */
+        width: auto; /* adjust to text width */
+        align-self: flex-start; /* don’t stretch full width */
         transition: background-color 0.3s ease;
       }
       input[type="submit"]:hover {
-        background-color: #e0e0e0; /* un poco más oscuro al pasar el mouse */
+        background-color: #e0e0e0; /* slightly darker on hover */
       }
       .message {
         background-color: #dff0d8;
@@ -71,10 +71,11 @@
 
     <main>
         <h1>Update Account Information</h1>
-        <p>*Note all fields are required</p>
+        <p>*Note: all fields are required</p>
 
         <?php if (isset($message)) echo '<p class="message">' . $message . '</p>'; ?>
 
+        <!-- Form to update personal account information -->
         <form action="/worksafe/accounts/index.php" method="POST">
             <label for="clientFirstname">New First Name</label>
             <input type="text" name="clientFirstname" id="clientFirstname"
@@ -96,10 +97,11 @@
 
         <h2>Change Password</h2>
         <p>
-            Passwords must be at least 8 characters and contain at least 1
-            number, 1 capital letter, and 1 special character.
+            Passwords must be at least 8 characters long and contain at least:
+            1 number, 1 uppercase letter, and 1 special character.
         </p>
 
+        <!-- Form to update the password -->
         <form action="/worksafe/accounts/index.php" method="POST" id="passwordForm">
             <label for="clientPassword">New Password</label>
             <input type="password" name="clientPassword" id="clientPassword" required

@@ -1,84 +1,109 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4; 
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif; /* Set a clean sans-serif font */
+  background-color: #f4f4f4; /* Light gray background */
+  margin: 0; /* Remove default browser margin */
+  padding: 0; /* Remove default browser padding */
 }
 
+/* ===========================
+   Main Container Styles
+   =========================== */
 main {
-  max-width: 400px;
-  width: 90%;
-  margin: 40px auto;
-  background: transparent; 
-  padding: 2rem;
-  border-radius: 10px;
-  border: 1px solid #ccc; 
-  box-sizing: border-box;
+  max-width: 400px; /* Limit the maximum width */
+  width: 90%; /* Make container responsive to smaller screens */
+  margin: 40px auto; /* Center horizontally and add top/bottom space */
+  background: transparent; /* Transparent background */
+  padding: 2rem; /* Inner padding for spacing */
+  border-radius: 10px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light gray border */
+  box-sizing: border-box; /* Include padding and border in total width */
 }
 
+/* ===========================
+   Heading Styles
+   =========================== */
 h1 {
-  text-align: center;
-  color: #333;
+  text-align: center; /* Center the heading text */
+  color: #333; /* Dark gray text */
 }
 
+/* ===========================
+   Message Box Styles
+   =========================== */
 .message {
-  background-color: #ffdddd;
-  color: #a94442;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
+  background-color: #ffdddd; /* Light red background for alerts */
+  color: #a94442; /* Dark red text for visibility */
+  padding: 0.8rem; /* Inner spacing */
+  margin-bottom: 1rem; /* Space below the message */
+  border-radius: 5px; /* Rounded corners */
 }
 
+/* ===========================
+   Form Label Styles
+   =========================== */
 form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.3rem;
-  color: #333;
+  font-weight: bold; /* Make labels stand out */
+  display: block; /* Place label on its own line */
+  margin-bottom: 0.3rem; /* Space below the label */
+  color: #333; /* Dark gray text */
 }
 
+/* ===========================
+   Input Fields (Email & Password)
+   =========================== */
 form input[type="email"],
 form input[type="password"] {
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  width: 100%; /* Full width input fields */
+  padding: 0.6rem; /* Inner spacing */
+  margin-bottom: 1rem; /* Space below each input */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light gray border */
+  font-size: 1rem; /* Standard font size */
 }
 
+/* ===========================
+   Submit Button Styles
+   =========================== */
 form input[type="submit"] {
-  width: 100%;
-  padding: 0.8rem;
-  background-color: #28a745; 
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
+  width: 100%; /* Full width button */
+  padding: 0.8rem; /* Inner spacing */
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1rem; /* Standard font size */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
+/* Hover effect for submit button */
 form input[type="submit"]:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker green on hover */
 }
 
+/* ===========================
+   Link Styles
+   =========================== */
 .link {
-  display: block;
-  text-align: center;
-  margin-top: 1rem;
-  color: #28a745;
-  text-decoration: none;
+  display: block; /* Make link appear on its own line */
+  text-align: center; /* Center text horizontally */
+  margin-top: 1rem; /* Space above the link */
+  color: #28a745; /* Green text color */
+  text-decoration: none; /* Remove underline */
 }
 
+/* Hover effect for link */
 .link:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Add underline on hover */
 }
 
-
+/* ===========================
+   Responsive Adjustments for Small Screens
+   =========================== */
 @media (max-width: 400px) {
   main {
-    margin: 20px;
-    padding: 1.2rem;
-    background: rgba(255, 255, 255, 0.85); 
-    border: 1px solid #bbb;
+    margin: 20px; /* Reduce outer margin */
+    padding: 1.2rem; /* Reduce inner padding */
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+    border: 1px solid #bbb; /* Slightly darker border */
   }
 }

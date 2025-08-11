@@ -1,16 +1,26 @@
 <?php
-// models
+// Import database connection function
 require_once './library/connections.php';
 
+/**
+ * Retrieves data from the 'datos_ssoma' table for a specific month.
+ *
+ * @param string $mes The month name (e.g., 'enero', 'febrero').
+ * @return array|null Returns an associative array with data for the month, 
+ *                    or a default array with zero values if no record is found,
+ *                    or null in case of an error.
+ */
 function obtenerDatosPorMes($mes) {
     try {
         $pdo = dataPrueba();
+
+        // Prepare query to get data for the given month (case-insensitive)
         $stmt = $pdo->prepare("SELECT * FROM datos_ssoma WHERE LOWER(mes) = LOWER(?) ORDER BY anio DESC LIMIT 1");
         $stmt->execute([$mes]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         
+        // If no data exists, return default structure with zero values
         if (!$result) {
-        
             return [
                 'id' => 0,
                 'mes' => $mes,
@@ -29,14 +39,22 @@ function obtenerDatosPorMes($mes) {
         
         return $result;
     } catch (PDOException $e) {
+        // Log the error without exposing sensitive details to the user
         error_log("Error en obtenerDatosPorMes: " . $e->getMessage());
         return null;
     }
 }
 
+/**
+ * Retrieves all records from 'datos_ssoma' ordered by month and year.
+ *
+ * @return array Returns an array of associative arrays containing all records.
+ */
 function obtenerTodosLosDatos() {
     try {
         $pdo = dataPrueba();
+
+        // Order months manually to maintain chronological order
         $stmt = $pdo->prepare("SELECT * FROM datos_ssoma ORDER BY 
             CASE mes 
                 WHEN 'enero' THEN 1 
@@ -52,6 +70,7 @@ function obtenerTodosLosDatos() {
                 WHEN 'noviembre' THEN 11 
                 WHEN 'diciembre' THEN 12 
             END, anio DESC");
+        
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -60,9 +79,16 @@ function obtenerTodosLosDatos() {
     }
 }
 
+/**
+ * Retrieves a yearly summary from 'datos_ssoma' for the current year.
+ *
+ * @return array Returns an array with monthly totals, averages, and max values for the year.
+ */
 function obtenerResumenAnual() {
     try {
         $pdo = dataPrueba();
+
+        // Get summarized data grouped by month for the current year
         $stmt = $pdo->prepare("
             SELECT 
                 mes,
@@ -90,6 +116,7 @@ function obtenerResumenAnual() {
                     WHEN 'diciembre' THEN 12 
                 END
         ");
+        
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

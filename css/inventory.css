@@ -1,114 +1,128 @@
-/* Tabla */
 .data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  width: 100%; /* Make table take full container width */
+  border-collapse: collapse; /* Merge borders for a clean look */
+  font-family: Arial, sans-serif; /* Set font style */
 }
 
 .data-table thead {
-  background-color: #f1f1f1;
-  font-weight: 700;
+  background-color: #f1f1f1; /* Light gray background for table header */
+  font-weight: 700; /* Bold header text */
 }
 
 .data-table th,
 .data-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: left;
-  font-size: 0.95rem;
-  vertical-align: middle;
+  padding: 12px 16px; /* Add space inside cells */
+  border-bottom: 1px solid #e0e0e0; /* Light gray border under each row */
+  text-align: left; /* Align text to the left */
+  font-size: 0.95rem; /* Slightly smaller font size */
+  vertical-align: middle; /* Align text vertically in the middle */
 }
 
 .data-table tr:hover {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Light background color on row hover */
 }
 
-
+/* ===========================
+   Last Column Styles (Actions Column)
+   =========================== */
 .data-table td:last-child {
-  text-align: center;
-  white-space: nowrap;
+  text-align: center; /* Center content horizontally */
+  white-space: nowrap; /* Prevent text from breaking into multiple lines */
 }
 
-
+/* Form container inside the last column */
 .data-table td:last-child form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 350px;
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+  gap: 0.5rem; /* Space between elements */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Align items vertically */
+  margin: 0 auto; /* Center form horizontally */
+  max-width: 350px; /* Limit maximum form width */
 }
 
+/* Text and number input fields inside the form */
 .data-table td:last-child form input[type="text"],
 .data-table td:last-child form input[type="number"] {
-  width: 65px;
-  padding: 0.25rem 0.4rem;
-  font-size: 0.85rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  text-align: center;
-  transition: border-color 0.2s ease;
+  width: 65px; /* Fixed width for inputs */
+  padding: 0.25rem 0.4rem; /* Inner padding */
+  font-size: 0.85rem; /* Slightly smaller font size */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light gray border */
+  box-sizing: border-box; /* Include border and padding in total width */
+  text-align: center; /* Center input text */
+  transition: border-color 0.2s ease; /* Smooth border color change */
 }
 
+/* Focus state for inputs */
 .data-table td:last-child form input[type="text"]:focus,
 .data-table td:last-child form input[type="number"]:focus {
-  border-color: #28a745;
-  outline: none;
+  border-color: #28a745; /* Green border on focus */
+  outline: none; /* Remove default outline */
 }
 
-/* Botón Update con mejor tamaño y margen */
+/* ===========================
+   Update Button Styles
+   =========================== */
 .data-table td:last-child form button {
-  padding: 0.4rem 1rem;
-  font-size: 0.9rem;
-  background-color: #28a745;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
+  padding: 0.4rem 1rem; /* Space inside button */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  background-color: #28a745; /* Green background */
+  border: none; /* Remove border */
+  color: white; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  flex-shrink: 0; /* Prevent button from shrinking */
 }
 
+/* Hover effect for the update button */
 .data-table td:last-child form button:hover {
-  background-color: #218838;
+  background-color: #218838; /* Darker green on hover */
 }
 
-/* Link eliminar alineado y con buen espaciado */
+/* ===========================
+   Delete Link Styles
+   =========================== */
 .data-table td:last-child a {
-  display: inline-block;
-  margin-left: 0.8rem;
-  color: #dc3545;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  vertical-align: middle;
-  cursor: pointer;
-  transition: color 0.3s ease;
+  display: inline-block; /* Inline element with block properties */
+  margin-left: 0.8rem; /* Space from previous element */
+  color: #dc3545; /* Red color for delete */
+  font-weight: 600; /* Semi-bold text */
+  text-decoration: none; /* Remove underline */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  vertical-align: middle; /* Align with surrounding text */
+  cursor: pointer; /* Pointer cursor */
+  transition: color 0.3s ease; /* Smooth hover effect */
 }
 
+/* Hover effect for delete link */
 .data-table td:last-child a:hover {
-  text-decoration: underline;
-  color: #a71d2a;
+  text-decoration: underline; /* Add underline on hover */
+  color: #a71d2a; /* Darker red on hover */
 }
 
-/* Ajustes responsive para celdas pequeñas */
+/* ===========================
+   Responsive Adjustments for Small Screens
+   =========================== */
 @media (max-width: 600px) {
+  /* Make form take full width in small screens */
   .data-table td:last-child form {
     max-width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Align to the left instead of center */
   }
 
+  /* Smaller input fields */
   .data-table td:last-child form input[type="text"],
   .data-table td:last-child form input[type="number"] {
-    width: 50px;
-    font-size: 0.8rem;
+    width: 50px; /* Reduce width */
+    font-size: 0.8rem; /* Smaller font size */
   }
 
+  /* Smaller buttons and links */
   .data-table td:last-child form button,
   .data-table td:last-child a {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem; /* Smaller font */
+    padding: 0.3rem 0.8rem; /* Reduced padding */
   }
 }

@@ -7,14 +7,14 @@
     <title>WorkSafe Registration</title>
     <meta name="description" content="WorkSafe Registration" />
     <style>
-       /* Reset básico */
+       /* Basic reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* Body igual que login */
+/* Body styling - same as login */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -23,7 +23,7 @@ body {
     color: #333;
 }
 
-/* Contenedor principal */
+/* Main container */
 main {
     max-width: 400px;
     width: 90%;
@@ -35,21 +35,21 @@ main {
     box-sizing: border-box;
 }
 
-/* Quitar borde y padding default de fieldset */
+/* Remove default border and padding from fieldset */
 fieldset {
     border: none;
     padding: 0;
     margin: 0;
 }
 
-/* Título */
+/* Page title */
 h1 {
     text-align: center;
     color: #333;
     margin-bottom: 1.5rem;
 }
 
-/* Mensaje de error o alerta */
+/* Error or alert message box */
 .message {
     background-color: #ffdddd;
     color: #a94442;
@@ -60,7 +60,7 @@ h1 {
     text-align: center;
 }
 
-/* Labels */
+/* Form labels */
 label {
     font-weight: bold;
     display: block;
@@ -68,7 +68,7 @@ label {
     color: #333;
 }
 
-/* Inputs */
+/* Text, email, and password inputs */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -80,10 +80,10 @@ input[type="password"] {
     font-size: 1rem;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
-    outline: none; /* quita el outline por defecto */
+    outline: none; /* removes default outline */
 }
 
-/* Tooltip para indicaciones */
+/* Tooltip for field instructions */
 .tooltip {
     font-size: 0.85rem;
     color: #666;
@@ -91,7 +91,7 @@ input[type="password"] {
     display: block;
 }
 
-/* Botón submit */
+/* Submit button */
 input[type="submit"] {
     width: 100%;
     padding: 0.8rem;
@@ -103,14 +103,14 @@ input[type="submit"] {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    outline: none; /* quita outline en botón */
+    outline: none; /* removes button outline */
 }
 
 input[type="submit"]:hover {
     background-color: #218838;
 }
 
-/* Responsive para móviles */
+/* Mobile responsive adjustments */
 @media (max-width: 400px) {
     main {
         margin: 20px;
@@ -119,22 +119,26 @@ input[type="submit"]:hover {
         border: 1px solid #bbb;
     }
 }
-
     </style>
 </head>
 
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
+    <?php 
+    // Include the header section
+    include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; 
+    ?>
 
     <main>
         <h1>Register</h1>
 
         <?php
+        // Display message if set
         if (isset($message)) {
             echo "<p class='message'>$message</p>";
         }
         ?>
 
+        <!-- Registration form -->
         <form method="post" action="/worksafe/accounts/index.php" novalidate>
             <fieldset>
                 <label for="fname">First Name:</label>
@@ -151,7 +155,8 @@ input[type="submit"]:hover {
 
                 <label for="password">Password:</label>
                 <span class="tooltip">
-                    Password must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character.
+                    Password must be at least 8 characters and contain at least 1 number, 
+                    1 capital letter, and 1 special character.
                 </span>
                 <input type="password" id="password" name="clientPassword" required
                     pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
@@ -165,7 +170,10 @@ input[type="submit"]:hover {
         </form>
     </main>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/footer.php"; ?>
+    <?php 
+    // Include the footer section
+    include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/footer.php"; 
+    ?>
 </body>
 
 </html>
