@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4; /* Color de fondo general */
+  background-color: #f4f4f4; 
   margin: 0;
   padding: 0;
 }
@@ -9,10 +9,10 @@ main {
   max-width: 400px;
   width: 90%;
   margin: 40px auto;
-  background: transparent; /* Fondo transparente en desktop */
+  background: transparent; 
   padding: 2rem;
   border-radius: 10px;
-  border: 1px solid #ccc; /* Mantiene el borde */
+  border: 1px solid #ccc; 
   box-sizing: border-box;
 }
 
@@ -49,7 +49,7 @@ form input[type="password"] {
 form input[type="submit"] {
   width: 100%;
   padding: 0.8rem;
-  background-color: #28a745; /* Verde del resto del sitio */
+  background-color: #28a745; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -73,12 +73,12 @@ form input[type="submit"]:hover {
   text-decoration: underline;
 }
 
-/* Responsive para móviles */
+
 @media (max-width: 400px) {
   main {
     margin: 20px;
     padding: 1.2rem;
-    background: rgba(255, 255, 255, 0.85); /* Fondo semitransparente en móviles para legibilidad */
+    background: rgba(255, 255, 255, 0.85); 
     border: 1px solid #bbb;
   }
 }

@@ -6,9 +6,9 @@ function dataPrueba()
 
     $server = 'localhost';
     $dbname= 'worksafe';
-    $username = 'Client';
+    $username = 'clients';
     //$password = '9X(meYDO7PdQ)5!9';
-    $password = 'ZEs3LS9wZ53ot/9q'; 
+    $password = 'M*PwWV(vDVuujlUP'; 
 
     $dsn = "mysql:host=$server;dbname=$dbname";
     $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);

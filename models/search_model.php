@@ -1,6 +1,8 @@
 <?php
-
-require_once '../library/connections.php'; 
+// Use absolute path or check if connections is already included
+if (!function_exists('dataPrueba')) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/worksafe/library/connections.php';
+}
 
 function obtenerDatosPorNombre($name, $area_trabajo) {
     // Connect to the database

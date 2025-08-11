@@ -2,21 +2,18 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-?>
-
-<?php
 
 // Check if the user is logged in
 if (!isset($_SESSION['clientData'])) {
     echo "<p style='color: red;'>Access denied. You must be logged in.</p>";
-    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    header("refresh:3;url=/worksafe/index.php");
     exit;
 }
 
 // Check if the user has level 1 access
 if ($_SESSION['clientData']['clientLevel'] != 1) {
     echo "<p style='color: red;'>You do not have permission to access this page.</p>";
-    header("refresh:3;url=/worksafe/index.php"); // redirects after 3 seconds
+    header("refresh:3;url=/worksafe/index.php");
     exit;
 }
 ?>
@@ -24,7 +21,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/worksafe/common/header.php"; ?>
 
 <!-- Include specific CSS -->
-<link rel="stylesheet" href="../css/search.css">
+<link rel="stylesheet" href="./css/search.css">
 
 <div class="main-content">
     <!-- Search Form -->
@@ -33,12 +30,14 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
         
         <div class="marco">
             <label for="nombre">Search by name:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Enter employee name...">
+            <input type="text" id="nombre" name="nombre" placeholder="Enter employee name..." 
+                   value="<?php echo isset($search_params['nombre']) ? htmlspecialchars($search_params['nombre']) : ''; ?>">
         </div>
 
-        <div>
+        <div class="marco">
             <label for="area_trabajo">Search by work area:</label>
-            <input type="text" id="area_trabajo" name="area_trabajo" placeholder="Enter work area...">
+            <input type="text" id="area_trabajo" name="area_trabajo" placeholder="Enter work area..." 
+                   value="<?php echo isset($search_params['area_trabajo']) ? htmlspecialchars($search_params['area_trabajo']) : ''; ?>">
         </div>
 
         <input type="submit" value="🔍 Search Personnel">
@@ -91,7 +90,7 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
         // Check if form is submitted and results exist
         if (!empty($personas)) {
             echo '<div class="marco">';
-            echo '<h2><i class="fas fa-users"></i> Search Results</h2>';
+            echo '<h2><i class="fas fa-users"></i> Search Results (' . count($personas) . ' found)</h2>';
             echo '<ul id="personListUl">';
             foreach ($personas as $persona) {
                 $persona['firmar'] = 'data:image/jpeg;base64,' . $persona['firmar'];
@@ -105,7 +104,50 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
                 if ($has_ppe) {
                     echo '<li>';
                     echo '<div class="photo">';
-                    echo '<img src="' . $persona['foto'] . '" alt="' . $persona['name'] . '">';
+                    // Handle different image path formats
+                    $foto_path = $persona['foto'];
+                    
+                    // Debug: Show the original path (remove this line once fixed)
+                    // echo "<!-- Debug: Original path: " . htmlspecialchars($foto_path) . " -->";
+                    
+                    // If it's a base64 image
+                    if (strpos($foto_path, 'data:image') === 0) {
+                        echo '<img src="' . htmlspecialchars($foto_path) . '" alt="' . htmlspecialchars($persona['name']) . '" style="max-width: 150px; height: auto;">';
+                    }
+                    // If it's a regular file path
+                    elseif (!empty($foto_path)) {
+                        // Try different path combinations
+                        $possible_paths = [
+                            $foto_path,  // Original path
+                            '/worksafe/' . ltrim($foto_path, '/'), // Add worksafe prefix
+                            '/worksafe/uploads/' . basename($foto_path), // Assume uploads folder
+                            '/worksafe/images/' . basename($foto_path), // Assume images folder
+                            './uploads/' . basename($foto_path), // Relative uploads
+                            './images/' . basename($foto_path), // Relative images
+                        ];
+                        
+                        $image_found = false;
+                        foreach ($possible_paths as $test_path) {
+                            // Check if file exists (for server-side files)
+                            $server_path = $_SERVER['DOCUMENT_ROOT'] . $test_path;
+                            if (file_exists($server_path)) {
+                                echo '<img src="' . htmlspecialchars($test_path) . '" alt="' . htmlspecialchars($persona['name']) . '" style="max-width: 150px; height: auto;">';
+                                $image_found = true;
+                                break;
+                            }
+                        }
+                        
+                        // If no file found, try original path anyway (might be external URL)
+                        if (!$image_found) {
+                            echo '<img src="' . htmlspecialchars($foto_path) . '" alt="' . htmlspecialchars($persona['name']) . '" style="max-width: 150px; height: auto;" onerror="this.src=\'/worksafe/images/default-avatar.png\'; this.style.backgroundColor=\'#f0f0f0\'; this.style.border=\'1px solid #ddd\';">';
+                        }
+                    }
+                    // Default placeholder if no image
+                    else {
+                        echo '<div style="width: 150px; height: 150px; background-color: #f0f0f0; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; color: #666;">';
+                        echo '<i class="fas fa-user" style="font-size: 3em;"></i>';
+                        echo '</div>';
+                    }
                     echo '</div>';
                     
                     echo '<span>';
@@ -187,6 +229,12 @@ if ($_SESSION['clientData']['clientLevel'] != 1) {
             }
             echo '</ul>';
             echo '</div>';
+        } elseif (isset($_SESSION['search_attempted'])) {
+            echo '<div class="marco">';
+            echo '<h2><i class="fas fa-exclamation-circle"></i> No Results Found</h2>';
+            echo '<p>No personnel found matching your search criteria.</p>';
+            echo '</div>';
+            unset($_SESSION['search_attempted']);
         }
         ?>
     </div>

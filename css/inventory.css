@@ -23,13 +23,13 @@
   background-color: #f9f9f9;
 }
 
-/* Contenedor de acciones con flexbox para mejor orden */
+
 .data-table td:last-child {
   text-align: center;
   white-space: nowrap;
 }
 
-/* Formulario en celda acciones */
+
 .data-table td:last-child form {
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +40,6 @@
   max-width: 350px;
 }
 
-/* Inputs pequeños y estilizados */
 .data-table td:last-child form input[type="text"],
 .data-table td:last-child form input[type="number"] {
   width: 65px;

@@ -1,39 +1,55 @@
-/* Reset básico */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --text-color: #ecf0f1;
+    --text-dark: #2c3e50;
+    --hover-color: #2980b9;
+    --active-color: #1abc9c;
+    --background-light: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Body igual que login */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4; /* Color de fondo general */
+  background-color: #f4f4f4; 
   margin: 0;
   padding: 0;
   color: #333;
 }
 
-/* Contenedor principal */
+
 .container {
   max-width: 400px;
   width: 90%;
   margin: 40px auto;
-  background: transparent; /* Fondo transparente en desktop */
+  background: transparent; 
   padding: 2rem;
   border-radius: 10px;
-  border: 1px solid #ccc; /* Mantiene el borde */
+  border: 1px solid #ccc; 
   box-sizing: border-box;
 }
 
-/* En pantallas ≥768px, aumentar ancho contenedor */
+
 @media (min-width: 768px) {
   .container {
     max-width: 600px;
   }
 }
 
-/* Título del formulario */
+
 .titulo-formulario {
   text-align: center;
   color: #333;
@@ -42,7 +58,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Labels */
+
 label {
   font-weight: bold;
   display: block;
@@ -50,7 +66,7 @@ label {
   color: #333;
 }
 
-/* Inputs y selects */
+
 .input-text,
 .input-date,
 .select,
@@ -67,7 +83,7 @@ input[type="file"] {
   cursor: text;
 }
 
-/* Select cursor pointer */
+
 .select {
   cursor: pointer;
 }
@@ -85,7 +101,7 @@ input[type="file"] {
   font-weight: bold;
   transition: background-color 0.3s ease;
   display: block;
-  margin: 20px auto 30px auto; /* Cambié el margen inferior a 30px */
+  margin: 20px auto 30px auto; 
 }
 
 
@@ -93,13 +109,13 @@ input[type="file"] {
   background-color: #218838;
 }
 
-/* Iconos dentro de labels (opcional) */
+
 label i {
   margin-right: 0.5rem;
    color: #666666;
 }
 
-/* Canvas de firma (mismo ancho que inputs) */
+
 canvas#firmaCanvas {
   display: block;
   width: 100%;
@@ -110,7 +126,7 @@ canvas#firmaCanvas {
   margin-bottom: 1rem;
 }
 
-/* Botón limpiar firma */
+
 button {
   background-color: #28a745;
   border: none;
@@ -138,12 +154,12 @@ button:hover {
   text-align: center;
 }
 
-/* Responsividad igual que login */
+
 @media (max-width: 400px) {
   .container {
     margin: 20px;
     padding: 1.2rem;
-    background: rgba(255, 255, 255, 0.85); /* Fondo semitransparente en móviles para legibilidad */
+    background: rgba(255, 255, 255, 0.85); 
     border: 1px solid #bbb;
   }
 }
